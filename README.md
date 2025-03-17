@@ -15,7 +15,7 @@ To run all tests, execute:
 
 ```bash
 npm run test
-
+```
 
 ## CI/CD
 
