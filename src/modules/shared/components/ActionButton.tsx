@@ -3,6 +3,7 @@ import { ActionButtonProps } from "../types/ActionButton.types";
 
 export const ActionButton: React.FC<ActionButtonProps> = ({
   text,
+  hideTextOnMobile,
   click,
   Icon,
   iconWidth,
@@ -16,7 +17,9 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
   backgroundColor,
   hoverBackgroundColor,
   hoverColor,
-  rounded
+  rounded,
+  fontSize,
+  fontWeight
 }) => {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -55,7 +58,12 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
           height={iconHeight}
         />
       )}
-      {text && <span className="ml-2">{text}</span>}
+
+      {text && (
+        <span className={hideTextOnMobile ? 'sm:block hidden ml-0.5':'ml-0.5' } style={{ fontSize, fontWeight }}>
+          {text}
+        </span>
+      )}
     </button>
   );
 };
