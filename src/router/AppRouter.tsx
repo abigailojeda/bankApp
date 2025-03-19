@@ -2,6 +2,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { DashboardPage } from '../modules/dashboard/components/DashboardPage';
 import { Navbar } from '../modules/shared/components/Navbar';
+import { Footer } from '../modules/shared/components/Footer';
 
 export function AppRouter() {
   return (
@@ -10,6 +11,7 @@ export function AppRouter() {
       <Routes>
         <Route path="/" element={<DashboardPage />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }
