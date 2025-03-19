@@ -1,4 +1,4 @@
-import { Transfer } from '../utils/transfer.types';
+import { Transfer } from '../types/transfer.types';
 
 interface TransferItemProps {
   transfer: Transfer;

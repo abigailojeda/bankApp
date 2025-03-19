@@ -1,5 +1,5 @@
 // src/modules/transfers/services/transfer.service.ts
-import { Transfer } from '../utils/transfer.types';
+import { Transfer } from '../types/transfer.types';
 
 const GET_TRANSFERS_QUERY = `
   query {

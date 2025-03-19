@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { Transfer } from '../../utils/transfer.types';
+import { Transfer } from '../../types/transfer.types';
 
 export interface TransferContextValue {
     transfers: Transfer[];

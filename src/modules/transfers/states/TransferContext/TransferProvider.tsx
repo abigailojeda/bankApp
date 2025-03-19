@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Transfer } from '../../utils/transfer.types';
+import { Transfer } from '../../types/transfer.types';
 import { getTransfers, addTransferService } from '../../services/transfer.service';
 import { TransferContext } from './TransferContext';
 
