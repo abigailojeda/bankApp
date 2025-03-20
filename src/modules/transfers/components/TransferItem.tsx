@@ -43,11 +43,6 @@ const TransferItem: React.FC<TransferItemProps> = ({ transfer }) => {
         </p>
         
       </section>
-
-      {/* <p>Quantity: {transfer.amount} {transfer.currency}</p>
-      <p>Date: {transfer.date}</p>
-      <p>Category: {transfer.type}</p>
-      <p>Description: {transfer.description}</p> */}
     </div>
   );
 };
