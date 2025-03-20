@@ -35,6 +35,7 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
     hoverColor,
     hoverBackgroundColor,
     hasBackground && backgroundColor,
+    hasBackground && rounded && 'p-1.5',
   ].filter(Boolean).join(' ');
 
   return (

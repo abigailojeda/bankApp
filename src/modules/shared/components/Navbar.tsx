@@ -11,7 +11,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
 }) => {
     return (
-        <div className={`w-full sm:fixed sm:bg-primary/60 backdrop-blur-md top-0 md:px-8 px-6  left-0 z-50`}>
+        <div className={`w-full sm:fixed sm:bg-primary/60 backdrop-blur-md top-0 sm:px-8 px-6  left-0 z-50`}>
             <div className="container mx-auto flex items-center justify-between py-6">
                 <h1 className="text-sm font-extrabold hover:text-subtitle text-purple">MAGICBANK</h1>
                 <nav>
