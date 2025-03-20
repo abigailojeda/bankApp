@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ActionButtonProps } from "../types/ActionButton.types";
 
 export const ActionButton: React.FC<ActionButtonProps> = ({
@@ -8,7 +8,6 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
   Icon,
   iconWidth,
   iconHeight,
-  iconColor,
   color,
   width,
   height,
@@ -21,49 +20,31 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
   fontSize,
   fontWeight
 }) => {
-  const [isHovered, setIsHovered] = useState(false);
 
-  const buttonStyle: React.CSSProperties = {
-    width, 
+  const buttonClasses = [
+    'flex',
+    'items-center',
+    'justify-center',
+    disabled ? 'cursor-not-allowed' : 'cursor-pointer',
+    rounded ? 'rounded-full' : 'rounded-md',
+    color,
+    fontSize,
+    fontWeight,
+    width && width,
     height,
-    color: isHovered && hoverColor ? hoverColor : color,
-    backgroundColor: hasBackground
-      ? isHovered && hoverBackgroundColor
-        ? hoverBackgroundColor
-        : backgroundColor
-      : 'transparent',
-    border: 'none',
-    outline: 'none',
-    borderRadius: rounded ? '9999px' : '4px',
-    transition: 'background-color 0.3s, color 0.3s',
-    cursor: disabled ? 'not-allowed' : 'pointer',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  };
+    hoverColor,
+    hoverBackgroundColor,
+    hasBackground && backgroundColor,
+  ].filter(Boolean).join(' ');
 
   return (
     <button
-      style={buttonStyle}
       onClick={click}
       disabled={disabled}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      className="flex items-center justify-center"
+      className={buttonClasses}
     >
-      {Icon && (
-        <Icon
-          color={iconColor}
-          width={iconWidth}
-          height={iconHeight}
-        />
-      )}
-
-      {text && (
-        <span className={hideTextOnMobile ? 'sm:block hidden ml-0.5':'ml-0.5' } style={{ fontSize, fontWeight }}>
-          {text}
-        </span>
-      )}
+      {Icon && <Icon width={iconWidth} height={iconHeight} />}
+      <span className={hideTextOnMobile ? 'md:block hidden ml-0.5' : 'ml-0.5'}>{text}</span>
     </button>
   );
 };

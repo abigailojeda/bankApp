@@ -1,0 +1,30 @@
+@use 'tailwindcss' as *;
+@use 'modules/shared/theme/colors.scss' as *;
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+
+@theme {
+    --color-background: 'var(--color-bg)';
+    --color-text: 'var(--color-text)';
+    --color-subtitle: 'var(--color-subtitle)';
+    --color-primary: 'var(--color-primary)';
+    --color-secondary: 'var(--color-secondary)';
+    --color-gray: 'var(--color-gray)';
+    --color-green: 'var(--color-green)';
+    --color-greenpale: 'var(--color-green-pale)';
+    --color-redpale: 'var(--color-red-pale)';
+    --color-purple: 'var(--color-purple)';
+  }
+
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--color-bg);
+
+}
+
+* {
+
+    box-sizing: border-box;
+}

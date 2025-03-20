@@ -1,4 +1,4 @@
 export interface NavbarProps {
-  backgroundColor?: string;
-  isFixed?: boolean;
+  isDark: boolean;
+  toggleDarkMode: () => void;
 }

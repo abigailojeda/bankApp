@@ -5,13 +5,12 @@ import { ActionButton } from '../components/ActionButton';
 import '@testing-library/jest-dom';
 
 const DummyIcon: React.FC<{ color?: string; width?: string; height?: string }> = ({
-  color,
   width,
   height,
 }) => (
   <svg
     data-testid="dummy-icon"
-    style={{ fill: color, width, height }}
+    style={{ width, height }}
     xmlns="http://www.w3.org/2000/svg"
   >
     <rect width="100%" height="100%" />
@@ -19,67 +18,80 @@ const DummyIcon: React.FC<{ color?: string; width?: string; height?: string }> =
 );
 
 describe('ActionButton', () => {
-  it('Button is rendered with text', () => {
-    render(<ActionButton text="Test Button" click={() => {}} color="black" />);
+  it('render text on button', () => {
+    render(
+      <ActionButton
+        text="Test Button"
+        click={() => {}}
+        color="text-black"
+      />
+    );
     expect(screen.getByText('Test Button')).toBeInTheDocument();
   });
 
-  it('Button is rendered with icon', () => {
+  it('render icon on button', () => {
     render(
       <ActionButton
         text="Icon Button"
         click={() => {}}
         Icon={DummyIcon}
-        iconColor="red"
         iconWidth="24px"
         iconHeight="24px"
-        color="black"
+        color="text-black"
       />
     );
     const icon = screen.getByTestId('dummy-icon');
     expect(icon).toBeInTheDocument();
-    expect(icon).toHaveStyle('fill: red');
     expect(icon).toHaveStyle('width: 24px');
     expect(icon).toHaveStyle('height: 24px');
   });
 
-  it('function executed onClick', () => {
+  it('execute function onclick', () => {
     const handleClick = vi.fn();
-    render(<ActionButton text="Click Me" click={handleClick} color="black" />);
+    render(
+      <ActionButton
+        text="Click Me"
+        click={handleClick}
+        color="text-black"
+      />
+    );
     const button = screen.getByRole('button');
     fireEvent.click(button);
     expect(handleClick).toHaveBeenCalled();
   });
 
-  it('style changed on hover', () => {
+  it('iclude correct classes on hover', () => {
     render(
       <ActionButton
         text="Hover Test"
         click={() => {}}
-        color="black"
-        hoverColor="blue"
+        color="text-black"
+        hoverColor="hover:text-blue"
         hasBackground
-        backgroundColor="white"
-        hoverBackgroundColor="gray"
+        backgroundColor="bg-white"
+        hoverBackgroundColor="hover:bg-gray"
       />
     );
     const button = screen.getByRole('button');
-    expect(button).toHaveStyle('color: black');
-    expect(button).toHaveStyle('background-color: white');
 
-    fireEvent.mouseEnter(button);
-    expect(button).toHaveStyle('color: blue');
-    expect(button).toHaveStyle('background-color: gray');
+    expect(button).toHaveClass('text-black');
+    expect(button).toHaveClass('bg-white');
 
-    fireEvent.mouseLeave(button);
-    expect(button).toHaveStyle('color: black');
-    expect(button).toHaveStyle('background-color: white');
+    expect(button.className).toContain('hover:text-blue');
+    expect(button.className).toContain('hover:bg-gray');
   });
 
-  it('disabled button rendered', () => {
-    render(<ActionButton text="Disabled" click={() => {}} color="black" disabled />);
+  it('render disabled button', () => {
+    render(
+      <ActionButton
+        text="Disabled"
+        click={() => {}}
+        color="text-black"
+        disabled
+      />
+    );
     const button = screen.getByRole('button');
     expect(button).toBeDisabled();
-    expect(button).toHaveStyle('cursor: not-allowed');
+    expect(button).toHaveClass('cursor-not-allowed');
   });
 });
