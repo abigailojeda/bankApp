@@ -2,7 +2,7 @@ import { User } from "../types/user.type";
 
 const GET_USER_INFO_QUERY = `
     query {
-        user {
+        users {
         id
         name
         surname
@@ -25,5 +25,6 @@ export async function getUserInfo(): Promise<User> {
     if (result.errors) {
         throw new Error(result.errors[0].message);
     }
-    return result.data.user;
+    //By the moment, we are only interested in the first user, until we implement the login functionality
+    return result.data.users[0];
     }

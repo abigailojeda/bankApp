@@ -6,4 +6,5 @@ export interface Transfer {
   type: string;
   description: string;
   currency: string;
+  current_balance: number;
 }

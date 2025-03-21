@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Transfer } from '../../types/transfer.types';
 import { getTransfers, addTransferService } from '../../services/transfer.service';
 import { TransferContext } from './TransferContext';
@@ -11,12 +11,16 @@ const TransferProvider: React.FC<TransferProviderProps> = ({ children }) => {
   const [transfers, setTransfers] = useState<Transfer[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<Error | null>(null);
+  const [totalIncomes, setTotalIncomes] = useState<number>(0);
+  const [totalExpenses, setTotalExpenses] = useState<number>(0);
 
   const fetchTransfers = async () => {
     setLoading(true);
     try {
       const data = await getTransfers();
       setTransfers(data);
+      calculateTotalIncomes(data);
+      calculateTotalExpenses(data);
       setError(null);
     } catch (err: any) {
       setError(err);
@@ -25,7 +29,28 @@ const TransferProvider: React.FC<TransferProviderProps> = ({ children }) => {
     }
   };
 
-  // Función para añadir transferencia
+  
+
+  const calculateTotalIncomes = (data) => {
+    let total = 0;
+    data.forEach((transfer:any) => {
+      if (transfer.type === 'deposit') {
+        total += transfer.amount;
+      }
+    });
+    setTotalIncomes(total);
+  }
+
+  const calculateTotalExpenses = (data) => {
+    let total = 0;
+    data.forEach((transfer) => {
+      if (transfer.type === 'withdrawal') {
+        total += transfer.amount;
+      }
+    });
+    setTotalExpenses(total);
+  }
+
   const addTransfer = async (transferData: {
     accountId: string;
     amount: number;
@@ -41,9 +66,6 @@ const TransferProvider: React.FC<TransferProviderProps> = ({ children }) => {
     }
   };
 
-  
-    
-
   useEffect(() => {
     fetchTransfers();
   }, []);
@@ -54,6 +76,8 @@ const TransferProvider: React.FC<TransferProviderProps> = ({ children }) => {
         transfers,
         loading,
         error,
+        totalIncomes,
+        totalExpenses,
         refreshTransfers: fetchTransfers,
         addTransfer, 
       }}

@@ -39,7 +39,7 @@ const TransferItem: React.FC<TransferItemProps> = ({ transfer }) => {
           {transfer.amount} {transfer.currency}
         </p>
         <p className='text-xs text-subtitle text-right'>
-          88.8888,88€
+          {transfer.current_balance} {transfer.currency}
         </p>
         
       </section>

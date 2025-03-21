@@ -1,3 +1,5 @@
+import { useContext } from "react"
+import { AuthContext } from "../../auth/states/AuthContext/AuthContext"
 import { NavbarProps } from "../types/Navbar.types"
 import { ActionButton } from "./ActionButton"
 import { NotificationIcon } from "./icons/NotificationIcon"
@@ -10,6 +12,9 @@ export const Navbar: React.FC<NavbarProps> = ({
     toggleDarkMode
 
 }) => {
+
+        const { user, loading: loadingAuth, error: errorAuth} = useContext(AuthContext);
+    
     return (
         <div className={`w-full sm:fixed sm:bg-primary/60 backdrop-blur-md top-0 sm:px-8 px-6  left-0 z-50`}>
             <div className="container mx-auto flex items-center justify-between py-6">
@@ -40,7 +45,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                         </li>
                         <li>
                             <ActionButton
-                                text="Username"
+                                text={user ? user.username : "Username"}
                                 color="text-subtitle"
                                 fontSize="text-sm"
                                 fontWeight="font-semibold"

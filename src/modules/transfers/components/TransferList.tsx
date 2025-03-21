@@ -13,7 +13,7 @@ const TransferList: React.FC = () => {
 
   const itemCount = useResponsiveItemCount(6, 5);
   const visibleTransfers = transfers
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()) 
+    .sort((a, b) => Number(b.date) - Number(a.date))
     .slice(0, itemCount);
 
   const handleAddTransfer = async (transferData: {

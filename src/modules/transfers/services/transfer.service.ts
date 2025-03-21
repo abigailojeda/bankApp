@@ -11,6 +11,7 @@ const GET_TRANSFERS_QUERY = `
       description
       currency
       account_id
+      current_balance
     }
   }
 `;
@@ -40,6 +41,7 @@ const ADD_TRANSFER_MUTATION = `
       description
       currency
       updatedBalance
+      current_balance
     }
   }
 `;

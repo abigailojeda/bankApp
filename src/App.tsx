@@ -3,6 +3,7 @@ import { AppRouter } from './router/AppRouter';
 import { ApolloProvider } from '@apollo/client';
 import client from './graphql/apolloClient';
 import { AccountProvider } from './modules/account/states/AccountContext';
+import AuthProvider from './modules/auth/states/AuthContext/AuthProvider';
 
 function App() {
 
@@ -10,11 +11,14 @@ function App() {
 
   return (
     <ApolloProvider client={client}>
-      <AccountProvider>
-        <TransferProvider>
-          <AppRouter />;
-        </TransferProvider>
-      </AccountProvider>
+      <AuthProvider>
+
+        <AccountProvider>
+          <TransferProvider>
+            <AppRouter />;
+          </TransferProvider>
+        </AccountProvider>
+      </AuthProvider>
     </ApolloProvider>
   );
 }

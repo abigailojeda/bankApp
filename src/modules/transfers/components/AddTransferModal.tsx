@@ -16,7 +16,7 @@ const AddTransferModal: React.FC<AddTransferModalProps> = ({ onClose, onAdd }) =
   const [amount, setAmount] = useState<number>(0);
   const [description, setDescription] = useState('');
   const [type, setType] = useState('deposit'); 
-  const [currency, setCurrency] = useState('€');
+  const [currency, setCurrency] = useState('EUR');
   const [accountId, setAccountId] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
