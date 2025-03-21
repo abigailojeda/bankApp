@@ -48,7 +48,9 @@ const TransferList: React.FC = () => {
           backgroundColor='bg-gray'
           rounded={true}
           Icon={() => <TransferIcon width="22" height="22" />}
-          hoverColor="hover:text-subtitle/80"
+          hoverBackgroundColor="hover:bg-gray/90"
+          width='w-8'
+          height='h-8'
           click={() => setIsModalOpen(true)}
         />
 
