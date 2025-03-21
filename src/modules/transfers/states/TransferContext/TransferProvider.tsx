@@ -31,7 +31,7 @@ const TransferProvider: React.FC<TransferProviderProps> = ({ children }) => {
 
   
 
-  const calculateTotalIncomes = (data) => {
+  const calculateTotalIncomes = (data:Transfer[]) => {
     let total = 0;
     data.forEach((transfer:any) => {
       if (transfer.type === 'deposit') {
@@ -41,9 +41,9 @@ const TransferProvider: React.FC<TransferProviderProps> = ({ children }) => {
     setTotalIncomes(total);
   }
 
-  const calculateTotalExpenses = (data) => {
+  const calculateTotalExpenses = (data:Transfer[]) => {
     let total = 0;
-    data.forEach((transfer) => {
+    data.forEach((transfer:Transfer) => {
       if (transfer.type === 'withdrawal') {
         total += transfer.amount;
       }
