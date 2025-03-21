@@ -32,7 +32,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                                 Icon={() => <TransferIcon width="19" height="19" />}
                                 click={() => console.log('test')} />
                         </li>
-                        <li>
+                        {/* <li>
                             <ActionButton
                                 text="Notifications"
                                 color="text-subtitle"
@@ -42,7 +42,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                                 hoverColor="hover:text-subtitle/80"
                                 Icon={() => <NotificationIcon width="17" height="17" />}
                                 click={() => console.log('test')} />
-                        </li>
+                        </li> */}
                         <li>
                             <ActionButton
                                 text={user ? user.username : "Username"}

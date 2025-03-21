@@ -19,16 +19,6 @@ export const AccountSummary = () => {
     }
 
     return (
-        // <div className="card-style h-32">
-
-        //     <h1>{currentBalance}</h1>
-        //     <h1>{user?.name} {user?.surname}</h1>
-        //     <span>Incomes:</span>
-        //     <span>{totalIncomes}</span>
-        //     <span>Expenses:</span>
-        //     <span>{totalExpenses}</span>
-        // </div>
-
         <div className="card-style h-48 flex flex-col justify-between ">
 
             <div className="flex w-full justify-between">
@@ -67,11 +57,11 @@ export const AccountSummary = () => {
                 </div>
 
                 <div className="flex text-sm">
-                    <div className="text-greenpale flex items-center">
+                    <div className="dark:text-greenpale text-green flex items-center">
                         <IncreaseIcon width="20px" height="20px" />
                         <span>{totalIncomes}</span>
                     </div>
-                    <div className="text-redpale ml-2 flex items-center">
+                    <div className="dark:text-redpale text-red ml-2 flex items-center">
                         <DecreaseIcon width="20px" height="20px" />
                         <span>{totalExpenses}</span>
                     </div>

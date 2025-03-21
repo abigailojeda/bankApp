@@ -7,7 +7,7 @@
 
 ## TESTING
 
-This project uses Jest along with React Testing Library for unit tests.
+This project uses Vitest along with React Testing Library for unit tests.
 
 ### Running Tests
 
@@ -34,6 +34,8 @@ This project uses **GitHub Actions** for continuous integration and **Vercel** f
    Finally, it deploys the built project to Vercel using the [amondnet/vercel-action](https://github.com/amondnet/vercel-action).  
    - Deployment credentials (like `VERCEL_TOKEN`, `VERCEL_ORG_ID`, and `VERCEL_PROJECT_ID`) are stored as **GitHub repository secrets**.
 
+## DEPENDENCIES
 
+### Toastify
 
-
+[Documentation](https://fkhadra.github.io/react-toastify/introduction/)
