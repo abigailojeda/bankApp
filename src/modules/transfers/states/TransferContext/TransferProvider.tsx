@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Transfer } from '../../types/transfer.types';
 import { getTransfers, addTransferService } from '../../services/transfer.service';
 import { TransferContext } from './TransferContext';
@@ -36,11 +36,13 @@ const TransferProvider: React.FC<TransferProviderProps> = ({ children }) => {
   }) => {
     try {
       await addTransferService(transferData);
-      await fetchTransfers();
     } catch (err: any) {
       setError(err);
     }
   };
+
+  
+    
 
   useEffect(() => {
     fetchTransfers();

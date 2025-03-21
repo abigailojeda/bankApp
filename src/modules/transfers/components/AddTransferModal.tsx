@@ -15,7 +15,7 @@ interface AddTransferModalProps {
 const AddTransferModal: React.FC<AddTransferModalProps> = ({ onClose, onAdd }) => {
   const [amount, setAmount] = useState<number>(0);
   const [description, setDescription] = useState('');
-  const [type, setType] = useState('transfer'); 
+  const [type, setType] = useState('deposit'); 
   const [currency, setCurrency] = useState('€');
   const [accountId, setAccountId] = useState('');
 
@@ -54,7 +54,6 @@ const AddTransferModal: React.FC<AddTransferModalProps> = ({ onClose, onAdd }) =
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               className="w-full border p-2"
-              required
             />
           </div>
           <div className="mb-3">
@@ -64,8 +63,8 @@ const AddTransferModal: React.FC<AddTransferModalProps> = ({ onClose, onAdd }) =
               onChange={(e) => setType(e.target.value)}
               className="w-full border p-2"
             >
+              <option value="deposit">Deposit</option>
               <option value="withdrawal">Withdrawal</option>
-              <option value="transfer">Transfer</option>
             </select>
           </div>
           <div className="mb-3">

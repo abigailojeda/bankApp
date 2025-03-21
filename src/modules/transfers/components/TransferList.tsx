@@ -11,7 +11,7 @@ const TransferList: React.FC = () => {
   const { transfers, loading, error, addTransfer } = useContext(TransferContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const itemCount = useResponsiveItemCount(9, 5);
+  const itemCount = useResponsiveItemCount(6, 5);
   const visibleTransfers = transfers
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()) 
     .slice(0, itemCount);
@@ -36,7 +36,7 @@ const TransferList: React.FC = () => {
   if (error) return <p>Error: {error.message}</p>;
 
   return (
-    <div className='h-full'>
+    <div className='h-full card-style '>
       <RealtimeTransferNotifier />
       <div className="flex justify-between items-center mb-4 ">
         <h2 className="text-sm text-text font-semibold">Recent transactions</h2>

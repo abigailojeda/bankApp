@@ -1,15 +1,19 @@
 import { gql } from '@apollo/client';
 
-export const TRANSACTION_ADDED_SUBSCRIPTION = gql`
+export const TRANSACTION_CHANGED_SUBSCRIPTION = gql`
   subscription {
-    transactionAdded {
-      id
-      account_id
-      amount
-      date
-      type
-      description
-      currency
+    transactionChanged {
+      changeType
+      transaction {
+        id
+        account_id
+        amount
+        date
+        type
+        description
+        currency
+        updatedBalance
+      }
     }
   }
 `;

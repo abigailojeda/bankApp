@@ -11,10 +11,10 @@ const TransferItem: React.FC<TransferItemProps> = ({ transfer }) => {
     <div className="w-full flex justify-between mb-4">
       <section>
         <div className="flex items-center">
-          <div className={`rounded-full w-8 h-8 flex items-center justify-center ${transfer.type === 'transfer' ? 'bg-greenpale text-green' : 'bg-redpale text-red'
+          <div className={`rounded-full w-8 h-8 flex items-center justify-center ${transfer.type === 'deposit' ? 'bg-greenpale text-green' : 'bg-redpale text-red'
             }`}
           >
-            {transfer.type === 'transfer' ? (
+            {transfer.type === 'deposit' ? (
               <UpArrowIcon width="16" height="16" viewBox="0 0 24 24" />
             ) : (
               <DownArrowIcon width="16" height="16" viewBox="0 0 24 24" />
@@ -35,7 +35,7 @@ const TransferItem: React.FC<TransferItemProps> = ({ transfer }) => {
 
       <section>
         <p className='text-sm text-text font-semibold'>
-          {transfer.type === 'transfer' ? '+' : '-'}
+          {transfer.type === 'deposit' ? '+' : '-'}
           {transfer.amount} {transfer.currency}
         </p>
         <p className='text-xs text-subtitle text-right'>

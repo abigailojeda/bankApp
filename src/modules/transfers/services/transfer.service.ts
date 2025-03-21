@@ -39,6 +39,7 @@ const ADD_TRANSFER_MUTATION = `
       type
       description
       currency
+      updatedBalance
     }
   }
 `;
