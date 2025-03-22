@@ -7,6 +7,7 @@ import { ActionButton } from '../../shared/components/ActionButton';
 import { TransferIcon } from '../../shared/components/icons/TransferIcon';
 import useResponsiveItemCount from '../../shared/hooks/useResponsiveItemCount';
 import { Link } from 'react-router-dom';
+import { formatDate } from '../../shared/helpers/formatter';
 
 const TransfersSummary: React.FC = () => {
   const { transfers, loading, error, addTransfer } = useContext(TransferContext);
@@ -15,7 +16,11 @@ const TransfersSummary: React.FC = () => {
   const itemCount = useResponsiveItemCount(5, 3);
   const visibleTransfers = transfers
     .sort((a, b) => Number(b.date) - Number(a.date))
-    .slice(0, itemCount);
+    .slice(0, itemCount)
+    .map((transfer) => ({
+      ...transfer,
+      date: formatDate(Number(transfer.date)),
+    }));
 
   const handleAddTransfer = async (transferData: {
     amount: number;
