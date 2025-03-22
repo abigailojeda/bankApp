@@ -28,7 +28,7 @@ const AccountProvider: React.FC<AccountProviderProps> = ({ children }) => {
             
             setError(null);
         } catch (err) {
-setError(err instanceof Error ? err : new Error(String(err)));
+            setError(err instanceof Error ? err : new Error(String(err)));
         } finally {
             setLoading(false);
         }
