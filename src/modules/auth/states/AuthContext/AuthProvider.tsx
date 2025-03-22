@@ -19,8 +19,9 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             const data = await getUserInfo();
             setUser(data);
             setError(null);
-        } catch (err: any) {
-            setError(err);
+        } catch (err) {
+            setError(err instanceof Error ? err : new Error(String(err)));
+
         } finally {
             setLoading(false);
         }

@@ -1,5 +1,5 @@
 // src/modules/transfers/services/transfer.service.ts
-import { Transfer } from '../types/transfer.types';
+import { TransferResponse } from '../types/transfer.types';
 
 const GET_TRANSFERS_QUERY = `
   query {
@@ -46,7 +46,7 @@ const ADD_TRANSFER_MUTATION = `
   }
 `;
 
-export async function getTransfers(): Promise<Transfer[]> {
+export async function getTransfers(): Promise<TransferResponse[]> {
   const serverUrl = import.meta.env.VITE_SERVER_URL;
   const response = await fetch(serverUrl, {
     method: 'POST',
@@ -68,7 +68,7 @@ export async function addTransferService(transferData: {
   type: string;
   description: string;
   currency: string;
-}): Promise<Transfer> {
+}): Promise<TransferResponse> {
   const serverUrl = import.meta.env.VITE_SERVER_URL;
   const response = await fetch(serverUrl, {
     method: 'POST',

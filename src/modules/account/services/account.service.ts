@@ -1,4 +1,4 @@
-import { Account } from "../types/account.type";
+import { AccountResponse } from "../types/account.type";
 
 const GET_ACCOUNTS_QUERY = `
     query {
@@ -11,7 +11,7 @@ const GET_ACCOUNTS_QUERY = `
     }
     `;
 
-export async function getAccounts(): Promise<Account[]> {
+export async function getAccounts(): Promise<AccountResponse[]> {
   const serverUrl = import.meta.env.VITE_SERVER_URL;
   const response = await fetch(serverUrl, {
     method: "POST",

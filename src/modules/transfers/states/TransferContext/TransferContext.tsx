@@ -1,12 +1,12 @@
 import { createContext } from 'react';
-import { TransferResponse } from '../../types/transfer.types';
+import { Transfer } from '../../types/transfer.types';
 
 export interface TransferContextValue {
-    transfers: TransferResponse[];
+    transfers: Transfer[];
     loading: boolean;
     error: Error | null;
-    totalIncomes?: number;
-    totalExpenses?: number;
+    totalIncomes?: string;
+    totalExpenses?: string;
     refreshTransfers: () => void;
     addTransfer: (transferData: {
         accountId: string;
@@ -20,8 +20,8 @@ export interface TransferContextValue {
 
 export const TransferContext = createContext<TransferContextValue>({
     transfers: [],
-    totalIncomes:0,
-    totalExpenses:0,
+    totalIncomes: '0',
+    totalExpenses: '0',
     loading: false,
     error: null,
     refreshTransfers: () => { },

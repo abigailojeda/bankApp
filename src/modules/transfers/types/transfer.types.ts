@@ -14,9 +14,10 @@ export interface Transfer {
   type: string;
   description: string;
   currency: string;
-  current_balance: number;
+  current_balance: string;
 }
 
-export interface TransferResponse extends Omit<Transfer, "amount"> {
+export interface TransferResponse extends Omit<Transfer, "amount"|"current_balance"> {
   amount: number;
+  current_balance: number;
 }

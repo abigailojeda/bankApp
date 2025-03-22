@@ -4,7 +4,7 @@ import { Account } from "../../types/account.type";
 export interface AccountContextValue{
     accounts: Account[];
     currentAccount: Account | null;
-    currentBalance: number;
+    currentBalance: string;
     iban: string;
     currency: string;
     loading: boolean;
@@ -17,7 +17,7 @@ export interface AccountContextValue{
 export const AccountContext = createContext<AccountContextValue>({
     accounts: [],
     currentAccount: null,
-    currentBalance: 0,
+    currentBalance: '0',
     iban: '',
     currency: '',
     loading: false,
