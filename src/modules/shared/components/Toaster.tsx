@@ -8,23 +8,26 @@ export const Toaster: React.FC<ToasterProps> = ({
     const textClass = `${message.color}`;
 
     return (
-        <div className={`flex flex-col ${textClass}`}>
+        <div className={`flex items-start pt-2 px-1 ${textClass}`}>
 
-            <div className="flex items-center">
-                <InfoIcon width="20" height="20" />
-                <h4 className='ml-2 font-semibold'>{message.title}</h4>
-            </div>
+            <InfoIcon width="20" height="20" />
 
-            <div className='flex'>
 
-                {
-                    message.subtitle &&
-                    <p className='italic'>{message.subtitle}</p>
-                }
-                {
-                    message.content &&
-                    <p className='font-bold'>{message.content}</p>
-                }
+
+            <div className='ml-2 -mt-0.5'>
+                <p className='font-semibold text-base'>{message.title}</p>
+
+                <div className='flex gap-2 flex-wrap my-3 justify-between text-sm'>
+
+                    {
+                        message.subtitle &&
+                        <p className='italic max-w-[150px] truncate'>{message.subtitle}</p>
+                    }
+                    {
+                        message.content &&
+                        <p className='font-bold text-right'>{message.content}</p>
+                    }
+                </div>
             </div>
         </div>
     );

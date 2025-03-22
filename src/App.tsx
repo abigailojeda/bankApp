@@ -15,7 +15,7 @@ function App() {
 
         <AccountProvider>
           <TransferProvider>
-            <AppRouter />;
+            <AppRouter />
 
             <ToastContainer
               autoClose={false}

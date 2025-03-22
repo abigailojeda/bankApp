@@ -19,17 +19,15 @@ export const AccountSummary = () => {
     }
 
     return (
-        <div className="card-style h-48 flex flex-col justify-between ">
+        <div className="card-style flex flex-col ">
 
             <div className="flex w-full justify-between">
 
-                <div className="flex-col flex h-full justify-between">
 
-                    <div className="text-subtitle text-sm">
-                        <span>{user?.name} {user?.surname}</span>
-                    </div>
-
+                <div className="text-subtitle">
+                    <span>{user?.name} {user?.surname}</span>
                 </div>
+
 
                 <ActionButton
                     text={currency}
@@ -46,25 +44,23 @@ export const AccountSummary = () => {
                 />
             </div>
 
-            <div className="flex w-full justify-between items-end ">
 
-                <div>
-                    <p className="text-3xl leading-7 text-text font-semibold">{currentBalance}</p>
+            <div>
+                <p className="text-3xl leading-7 mt-4 text-text font-semibold">{currentBalance}</p>
 
-                    {/* <p>
+                {/* <p>
                         aaa
                     </p> */}
-                </div>
+            </div>
 
-                <div className="flex text-sm">
-                    <div className="dark:text-greenpale text-green flex items-center">
-                        <IncreaseIcon width="20px" height="20px" />
-                        <span>{totalIncomes}</span>
-                    </div>
-                    <div className="dark:text-redpale text-red ml-2 flex items-center">
-                        <DecreaseIcon width="20px" height="20px" />
-                        <span>{totalExpenses}</span>
-                    </div>
+            <div className="flex items-end justify-end sm:flex-nowrap flex-wrap gap-2 border-t dark:border-bg border-gray pt-4 mt-4 text-sm">
+                <div className="dark:text-greenpale text-green flex items-center">
+                    <IncreaseIcon width="20px" height="20px" />
+                    <span>{totalIncomes}</span>
+                </div>
+                <div className="dark:text-redpale text-red sm:ml-2 flex items-center">
+                    <DecreaseIcon width="20px" height="20px" />
+                    <span>{totalExpenses}</span>
                 </div>
             </div>
         </div>

@@ -5,7 +5,7 @@
 
 
 @theme {
-    --color-background: 'var(--color-bg)';
+    --color-bg: 'var(--color-bg)';
     --color-text: 'var(--color-text)';
     --color-subtitle: 'var(--color-subtitle)';
     --color-primary: 'var(--color-primary)';
@@ -23,6 +23,10 @@
 @layer components {
     .card-style {
         @apply sm:w-[392px] w-full sm:mr-8 sm:mb-0 mb-4 bg-primary rounded-lg shadow-md p-4;
+    }
+
+    .page-container {
+        @apply container sm:px-8 px-6 w-full sm:pt-24 mx-auto flex sm:flex-row flex-col;
     }
 }
 
