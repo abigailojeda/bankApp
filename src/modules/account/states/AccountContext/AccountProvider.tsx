@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { AccountContext } from "./AccountContext";
 import { getAccounts } from "../../services/account.service";
 import { Account, AccountResponse } from "../../types/account.type";
-import { formatAmount } from "../../../shared/helpers/formatter";
+import { formatAmountDisplayed } from "../../../shared/helpers/formatter";
 
 interface AccountProviderProps {
     children: React.ReactNode;
@@ -21,9 +21,9 @@ const AccountProvider: React.FC<AccountProviderProps> = ({ children }) => {
             const data = await getAccounts();
             setAccounts(data.map((account: AccountResponse) => ({
                 ...account,
-                current_balance: formatAmount(account.current_balance, account.currency)
+                current_balance: formatAmountDisplayed(account.current_balance, account.currency)
             })));
-            setCurrentBalance(formatAmount(data[0].current_balance, data[0].currency));
+            setCurrentBalance(formatAmountDisplayed(data[0].current_balance, data[0].currency));
             setCurrentCurrency(data[0].currency);
             
             setError(null);
@@ -35,7 +35,7 @@ setError(err instanceof Error ? err : new Error(String(err)));
     };
 
     const updateCurrentBalance = (newBalance: number) => {
-        setCurrentBalance(formatAmount(newBalance, accounts[0].currency));
+        setCurrentBalance(formatAmountDisplayed(newBalance, accounts[0].currency));
     };
 
     useEffect(() => {

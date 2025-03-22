@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Transfer, TransferResponse } from '../../types/transfer.types';
 import { getTransfers, addTransferService } from '../../services/transfer.service';
 import { TransferContext } from './TransferContext';
-import { formatAmount } from '../../../shared/helpers/formatter';
+import { formatAmountDisplayed } from '../../../shared/helpers/formatter';
 import { AccountContext } from '../../../account/states/AccountContext';
 
 interface TransferProviderProps {
@@ -17,15 +17,14 @@ const TransferProvider: React.FC<TransferProviderProps> = ({ children }) => {
   const [totalExpenses, setTotalExpenses] = useState<string>('0');
   const { currency: currentCurrency } = useContext(AccountContext);
 
-
   const fetchTransfers = async () => {
     setLoading(true);
     try {
       const data = await getTransfers();
       const formattedData = data.map((transfer: TransferResponse) => ({
         ...transfer,
-        amount: formatAmount(transfer.amount, transfer.currency),
-        current_balance: formatAmount(transfer.current_balance, transfer.currency),
+        amount: formatAmountDisplayed(transfer.amount, transfer.currency),
+        current_balance: formatAmountDisplayed(transfer.current_balance, transfer.currency),
       }));
       setTransfers(formattedData);
       calculateTotalIncomes(data);
@@ -46,7 +45,7 @@ const TransferProvider: React.FC<TransferProviderProps> = ({ children }) => {
         total += transfer.amount;
       }
     });
-    setTotalIncomes(formatAmount(total, currentCurrency));
+    setTotalIncomes(formatAmountDisplayed(total, currentCurrency));
   }
 
   const calculateTotalExpenses = (data:TransferResponse[]) => {
@@ -56,7 +55,7 @@ const TransferProvider: React.FC<TransferProviderProps> = ({ children }) => {
         total += transfer.amount;
       }
     });
-    setTotalExpenses(formatAmount(total, currentCurrency));
+    setTotalExpenses(formatAmountDisplayed(total, currentCurrency));
   }
 
   const addTransfer = async (transferData: {

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { formatStringNumber, formatNumberString } from '../../shared/helpers/formatter';
 
 interface AddTransferModalProps {
   onClose: () => void;
@@ -13,7 +14,7 @@ interface AddTransferModalProps {
 }
 
 const AddTransferModal: React.FC<AddTransferModalProps> = ({ onClose, onAdd }) => {
-  const [amount, setAmount] = useState<number>(0);
+  const [amount, setAmount] = useState<string>('');
   const [description, setDescription] = useState('');
   const [type, setType] = useState('deposit'); 
   const [currency, setCurrency] = useState('EUR');
@@ -22,7 +23,7 @@ const AddTransferModal: React.FC<AddTransferModalProps> = ({ onClose, onAdd }) =
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onAdd({
-      amount,
+      amount: formatStringNumber(amount),
       description,
       type,
       currency,
@@ -40,9 +41,9 @@ const AddTransferModal: React.FC<AddTransferModalProps> = ({ onClose, onAdd }) =
           <div className="mb-3">
             <label className="block mb-1">Quantity:</label>
             <input
-              type="number"
+              type="string"
               value={amount}
-              onChange={(e) => setAmount(parseFloat(e.target.value))}
+              onChange={(e) => setAmount(formatNumberString(e.target.value))}
               className="w-full border p-2"
               required
             />

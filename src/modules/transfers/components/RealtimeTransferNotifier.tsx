@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import { Toaster } from '../../shared/components/Toaster';
 import { ToasterMessage } from '../../shared/types/Toaster.type';
 import { TransferTypeColorMap, TransferTypeKey } from '../types/transfer.types';
+import { formatAmountDisplayed } from '../../shared/helpers/formatter';
 
 const RealtimeTransferNotifier: React.FC = () => {
   const { data, error } = useSubscription(TRANSACTION_CHANGED_SUBSCRIPTION);
@@ -32,7 +33,7 @@ const RealtimeTransferNotifier: React.FC = () => {
         const toasterMessage: ToasterMessage = {
           title: 'New transaction on your account',
           subtitle: `${transaction.description}`,
-          content: `${transaction.type === 'withdrawal' ? '-' : ''}${transaction.amount} ${transaction.currency}`
+          content: `${transaction.type === 'withdrawal' ? '-' : '+'}${formatAmountDisplayed(transaction.amount, transaction.currency)}`,
         };
 
         toasterMessage.color = TransferTypeColorMap[transaction.type as TransferTypeKey];
