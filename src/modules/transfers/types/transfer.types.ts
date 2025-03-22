@@ -9,10 +9,14 @@ export const TransferTypeColorMap: Record<TransferTypeKey, string> = {
 export interface Transfer {
   id: string;
   account_id: string;
-  amount: number;
+  amount: string;
   date: string;
   type: string;
   description: string;
   currency: string;
   current_balance: number;
+}
+
+export interface TransferResponse extends Omit<Transfer, "amount"> {
+  amount: number;
 }

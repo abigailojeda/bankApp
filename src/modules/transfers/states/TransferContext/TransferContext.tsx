@@ -1,8 +1,8 @@
 import { createContext } from 'react';
-import { Transfer } from '../../types/transfer.types';
+import { TransferResponse } from '../../types/transfer.types';
 
 export interface TransferContextValue {
-    transfers: Transfer[];
+    transfers: TransferResponse[];
     loading: boolean;
     error: Error | null;
     totalIncomes?: number;

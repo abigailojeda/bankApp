@@ -7,20 +7,15 @@ import { ActionButton } from '../../shared/components/ActionButton';
 import { TransferIcon } from '../../shared/components/icons/TransferIcon';
 import useResponsiveItemCount from '../../shared/hooks/useResponsiveItemCount';
 import { Link } from 'react-router-dom';
-import { formatDate } from '../../shared/helpers/formatter';
+import { getVisibleTransfers } from '../utils/transferUtils';
 
 const TransfersSummary: React.FC = () => {
   const { transfers, loading, error, addTransfer } = useContext(TransferContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const itemCount = useResponsiveItemCount(5, 3);
-  const visibleTransfers = transfers
-    .sort((a, b) => Number(b.date) - Number(a.date))
-    .slice(0, itemCount)
-    .map((transfer) => ({
-      ...transfer,
-      date: formatDate(Number(transfer.date)),
-    }));
+
+  const visibleTransfers = getVisibleTransfers(transfers, itemCount);
 
   const handleAddTransfer = async (transferData: {
     amount: number;

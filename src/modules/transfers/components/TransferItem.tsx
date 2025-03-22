@@ -36,7 +36,7 @@ const TransferItem: React.FC<TransferItemProps> = ({ transfer }) => {
       <div>
         <p className='text-sm text-text font-semibold text-right'>
           {transfer.type === 'deposit' ? '+' : '-'}
-          {transfer.amount} {transfer.currency}
+          {transfer.amount}
         </p>
         <p className='text-xs text-subtitle text-right'>
           {transfer.current_balance}
