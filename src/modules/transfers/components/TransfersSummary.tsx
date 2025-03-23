@@ -74,9 +74,9 @@ const TransfersSummary: React.FC = () => {
 
   return (
     <>
-      <div className=' card-style '>
+      <div className='card-style mb-4'>
         <RealtimeTransferNotifier />
-        <div className="flex justify-between items-center mb-6">
+        <div className="flex justify-between items-center mb-4">
           <h2 className="text-sm text-text font-semibold">Recent transactions</h2>
           <ActionButton
             color="text-subtitle"
