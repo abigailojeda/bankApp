@@ -22,16 +22,14 @@ const ADD_TRANSFER_MUTATION = `
     $amount: Float!,
     $date: String,
     $type: String,
-    $description: String,
-    $currency: String
+    $description: String
   ) {
     createTransaction(
       accountId: $accountId,
       amount: $amount,
       date: $date,
       type: $type,
-      description: $description,
-      currency: $currency
+      description: $description
     ) {
       id
       account_id
@@ -67,7 +65,6 @@ export async function addTransferService(transferData: {
   date?: string;
   type: string;
   description: string;
-  currency: string;
 }): Promise<TransferResponse> {
   const serverUrl = import.meta.env.VITE_SERVER_URL;
   const response = await fetch(serverUrl, {

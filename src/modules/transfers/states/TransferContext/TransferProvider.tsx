@@ -64,7 +64,6 @@ const TransferProvider: React.FC<TransferProviderProps> = ({ children }) => {
     date?: string;
     type: string;
     description: string;
-    currency: string;
   }) => {
     try {
       await addTransferService(transferData);

@@ -17,3 +17,12 @@ export const TRANSACTION_CHANGED_SUBSCRIPTION = gql`
     }
   }
 `;
+
+export const CURRENCY_CHANGED_SUBSCRIPTION = gql`
+  subscription {
+    currencyChanged {
+      id
+      currency
+    }
+  }
+`;

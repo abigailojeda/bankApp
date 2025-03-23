@@ -14,7 +14,6 @@ export interface TransferContextValue {
         date?: string;
         type: string;
         description: string;
-        currency: string;
     }) => void;
 }
 

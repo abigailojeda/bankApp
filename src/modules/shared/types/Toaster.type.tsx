@@ -4,6 +4,7 @@ export interface ToasterMessage {
     subtitle?: string
     content?: string
     color?: string
+    caption?: string
 }
 
 export interface ToasterProps {

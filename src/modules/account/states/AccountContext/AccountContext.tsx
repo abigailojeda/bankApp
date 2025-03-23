@@ -11,8 +11,9 @@ export interface AccountContextValue{
     error: Error | null;
     refreshAccounts: () => void;
     updateCurrentBalance: (newBalance: number) => void;
+    updateCurrencyValue: (newCurrency: string) => void;
+    updateCurrency: (newBalance: number, newCurrency: string) => void;
 }
-     
 
 export const AccountContext = createContext<AccountContextValue>({
     accounts: [],
@@ -24,5 +25,7 @@ export const AccountContext = createContext<AccountContextValue>({
     error: null,
     refreshAccounts: () => { },
     updateCurrentBalance: () => { },
+    updateCurrencyValue: () => { },
+    updateCurrency: () => { }
     
 });

@@ -5,26 +5,27 @@ import client from './graphql/apolloClient';
 import { AccountProvider } from './modules/account/states/AccountContext';
 import AuthProvider from './modules/auth/states/AuthContext/AuthProvider';
 import { ToastContainer } from 'react-toastify';
+import { CurrencyProvider } from './modules/account/states/CurrencyContext';
 
 function App() {
-
 
   return (
     <ApolloProvider client={client}>
       <AuthProvider>
 
         <AccountProvider>
-          <TransferProvider>
-            <AppRouter />
+          <CurrencyProvider>
+            <TransferProvider>
+              <AppRouter />
 
-            <ToastContainer
-              autoClose={false}
-              closeButton={false}
-              toastStyle={{ backgroundColor: "var(--color-toasterbg)" }}
-              theme="colored"
-            />
+              <ToastContainer
+                closeButton={false}
+                toastStyle={{ backgroundColor: "var(--color-toasterbg)" }}
+                theme="colored"
+              />
 
-          </TransferProvider>
+            </TransferProvider>
+          </CurrencyProvider>
         </AccountProvider>
       </AuthProvider>
     </ApolloProvider>

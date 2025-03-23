@@ -4,12 +4,16 @@ import { AuthContext } from "../../auth/states/AuthContext/AuthContext";
 import { TransferContext } from "../../transfers/states/TransferContext";
 import { IncreaseIcon } from "../../shared/components/icons/IncreaseIcon";
 import { DecreaseIcon } from "../../shared/components/icons/DecreaseIcon";
-import { ActionButton } from "../../shared/components/ActionButton";
+import { Dropdown } from "../../shared/components/Dropdown";
+import { CurrencyContext } from "../states/CurrencyContext";
+import RealtimeCurrencyNotifier from "./RealtimeCurrencyNotifier";
+import { formatStringNumber } from "../../shared/helpers/formatter";
 
 export const AccountSummary = () => {
-    const { currentBalance, currency, loading, error } = useContext(AccountContext);
+    const { currentBalance, currency, loading, error, updateCurrency } = useContext(AccountContext);
     const { user, loading: loadingAuth, error: errorAuth } = useContext(AuthContext);
     const { totalIncomes, totalExpenses } = useContext(TransferContext);
+    const { exchangeRates, convertCurrency } = useContext(CurrencyContext);
 
     if (loading || loadingAuth) {
         return <div>Loading...</div>;
@@ -18,9 +22,26 @@ export const AccountSummary = () => {
         return <div>Error: {error?.message}</div>;
     }
 
+    const currencyOptions = Object.keys(exchangeRates).map((key) => ({
+        label: key.toUpperCase(),
+        value: key,
+    }));
+
+    const handleUpdateCurrency = async (currency: string) => {
+        try {
+            const balance = convertCurrency(formatStringNumber(currentBalance), currency);
+            await updateCurrency(balance, currency);
+
+        } catch (err) {
+          console.error('Error addiUpdateCurrency:', err);
+        }
+    };
+
+
+
     return (
         <div className="card-style flex flex-col ">
-
+            <RealtimeCurrencyNotifier />
             <div className="flex w-full justify-between">
 
 
@@ -29,19 +50,16 @@ export const AccountSummary = () => {
                 </div>
 
 
-                <ActionButton
-                    text={currency}
-                    click={() => { }}
-                    fontWeight="font-semibold"
-                    hasBackground={true}
-                    backgroundColor='bg-gray'
-                    color="text-subtitle"
-                    fontSize="text-xl"
-                    rounded={true}
-                    width="w-12"
-                    height="h-12"
-                    hoverBackgroundColor="hover:bg-gray/90"
+               <div className="w-fit">
+               <Dropdown
+                    options={currencyOptions}
+                    selectedValue={currency}
+                    onSelect={handleUpdateCurrency}
+                    searchable={true}
+                    hasActionButton={true}
                 />
+               </div>
+
             </div>
 
 

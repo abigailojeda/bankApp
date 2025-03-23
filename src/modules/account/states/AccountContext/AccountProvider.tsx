@@ -3,6 +3,7 @@ import { AccountContext } from "./AccountContext";
 import { getAccounts } from "../../services/account.service";
 import { Account, AccountResponse } from "../../types/account.type";
 import { formatAmountDisplayed } from "../../../shared/helpers/formatter";
+import { updateCurrencyService } from "../../services/currency.service";
 
 interface AccountProviderProps {
     children: React.ReactNode;
@@ -38,6 +39,18 @@ const AccountProvider: React.FC<AccountProviderProps> = ({ children }) => {
         setCurrentBalance(formatAmountDisplayed(newBalance, accounts[0].currency));
     };
 
+    const updateCurrencyValue = (newCurrency: string) => {
+        setCurrentCurrency(newCurrency);
+    }
+
+    const updateCurrency = async (newBalance: number, newCurrency: string) => {
+        try {
+            await updateCurrencyService(accounts[0].id, newBalance, newCurrency);
+        } catch (err) {
+            setError(err instanceof Error ? err : new Error(String(err)));
+        }
+    }
+
     useEffect(() => {
         fetchAccounts();
     }, []);
@@ -54,7 +67,9 @@ const AccountProvider: React.FC<AccountProviderProps> = ({ children }) => {
                 loading,
                 error,
                 refreshAccounts: fetchAccounts,
-                updateCurrentBalance
+                updateCurrentBalance,
+                updateCurrencyValue,
+                updateCurrency
             }}
         >
             {children}

@@ -8,6 +8,7 @@ import { TransferIcon } from '../../shared/components/icons/TransferIcon';
 import useResponsiveItemCount from '../../shared/hooks/useResponsiveItemCount';
 import { Link } from 'react-router-dom';
 import { getVisibleTransfers } from '../utils/transferUtils';
+import { TransferAddForm } from '../types/transfer.types';
 
 const TransfersSummary: React.FC = () => {
   const { transfers, loading, error, addTransfer } = useContext(TransferContext);
@@ -17,14 +18,7 @@ const TransfersSummary: React.FC = () => {
 
   const visibleTransfers = getVisibleTransfers(transfers, itemCount);
 
-  const handleAddTransfer = async (transferData: {
-    amount: number;
-    description: string;
-    type: string;
-    currency: string;
-    accountId: string;
-    date?: string;
-  }) => {
+  const handleAddTransfer = async (transferData:TransferAddForm) => {
     try {
       await addTransfer(transferData);
       setIsModalOpen(false);

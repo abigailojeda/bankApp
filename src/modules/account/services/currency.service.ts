@@ -1,3 +1,5 @@
+import { filterValidCurrencyCodes } from "../../shared/helpers/formatter";
+
 const BASE_URL =
   "https://latest.currency-api.pages.dev/v1/currencies";
 
@@ -11,12 +13,16 @@ export const getAllExchangeRates = async (
 ): Promise<{ [currency: string]: number }> => {
   try {
     const response = await fetch(`${BASE_URL}/${base.toLowerCase()}.min.json`);
-    console.log(response);
+
     if (!response.ok) {
       throw new Error(`Network response was not ok: ${response.statusText}`);
     }
+    
     const data: CurrencyRatesResponse = await response.json();
     const rates = data[base.toLowerCase()] as { [currency: string]: number };
+    
+    filterValidCurrencyCodes(rates);
+
     return rates;
   } catch (error) {
     console.error("Error fetching all exchange rates:", error);
@@ -24,33 +30,28 @@ export const getAllExchangeRates = async (
   }
 };
 
-export const getExchangeRate = async (
-  base: string,
-  target: string
-): Promise<number> => {
-  try {
-    const response = await fetch(`${BASE_URL}/${base.toLowerCase()}.json`);
-    if (!response.ok) {
-      throw new Error(`Network response was not ok: ${response.statusText}`);
-    }
-    const data: CurrencyRatesResponse = await response.json();
-    const rates = data[base.toLowerCase()] as { [key: string]: number };
-    if (rates && rates[target.toLowerCase()]) {
-      return rates[target.toLowerCase()];
-    } else {
-      throw new Error(`Exchange rate for ${target} not found.`);
-    }
-  } catch (error) {
-    console.error("Error fetching exchange rate:", error);
-    throw error;
+export const updateCurrencyService = async (
+  accountId: number,
+  newBalance: number,
+  newCurrency: string
+): Promise<void> => {
+  const serverUrl = import.meta.env.VITE_SERVER_URL;
+  const response = await fetch(serverUrl, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      query: `mutation UpdateCurrency($accountId: ID!, $currency: String!, $balance: Float!) {
+        updateCurrency(id: $accountId, currency: $currency, current_balance: $balance) {
+          id
+          currency
+          current_balance
+        }
+      }`,
+      variables: { accountId, currency: newCurrency, balance: newBalance },
+    }),
+  });
+  const result = await response.json();
+  if (result.errors) {
+    throw new Error(result.errors[0].message);
   }
-};
-
-export const convertCurrency = async (
-  amount: number,
-  base: string,
-  target: string
-): Promise<number> => {
-  const rate = await getExchangeRate(base, target);
-  return amount * rate;
-};
+}

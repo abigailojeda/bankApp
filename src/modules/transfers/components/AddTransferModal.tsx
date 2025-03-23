@@ -1,23 +1,16 @@
 import React, { useState } from 'react';
 import { formatStringNumber, formatNumberString } from '../../shared/helpers/formatter';
+import { TransferAddForm } from '../types/transfer.types';
 
 interface AddTransferModalProps {
   onClose: () => void;
-  onAdd: (transferData: {
-    amount: number;
-    description: string;
-    type: string;
-    currency: string;
-    accountId: string;
-    date?: string;
-  }) => void;
+  onAdd: (transferData: TransferAddForm) => void;
 }
 
 const AddTransferModal: React.FC<AddTransferModalProps> = ({ onClose, onAdd }) => {
   const [amount, setAmount] = useState<string>('');
   const [description, setDescription] = useState('');
   const [type, setType] = useState('deposit'); 
-  const [currency, setCurrency] = useState('EUR');
   const [accountId, setAccountId] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -26,7 +19,6 @@ const AddTransferModal: React.FC<AddTransferModalProps> = ({ onClose, onAdd }) =
       amount: formatStringNumber(amount),
       description,
       type,
-      currency,
       accountId,
       date: new Date().toISOString(),
     });
@@ -67,16 +59,6 @@ const AddTransferModal: React.FC<AddTransferModalProps> = ({ onClose, onAdd }) =
               <option value="deposit">Deposit</option>
               <option value="withdrawal">Withdrawal</option>
             </select>
-          </div>
-          <div className="mb-3">
-            <label className="block mb-1">Currency:</label>
-            <input
-              type="text"
-              value={currency}
-              onChange={(e) => setCurrency(e.target.value)}
-              className="w-full border p-2"
-              required
-            />
           </div>
           <div className="mb-3">
             <label className="block mb-1">Account ID :</label>

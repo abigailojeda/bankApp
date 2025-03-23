@@ -1,5 +1,5 @@
 export interface Account{
-    id: string;
+    id: number;
     userId: string;
     iban: string;
     current_balance: string;

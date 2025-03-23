@@ -57,3 +57,13 @@ export const formatStringNumber = (stringNumber: string | number): number => {
 
     return stringNumber === null ? 0 : stringNumber;
 };
+
+export const filterValidCurrencyCodes = (rates: { [currency: string]: number }): void => {
+  // Filter out any currency codes that do not conform to the ISO 4217 format
+  // as Intl.NumberFormat only supports ISO 4217 currency codes.
+  Object.keys(rates).forEach((currencyCode) => {
+    if (!/^[A-Za-z]{3}$/.test(currencyCode)) {
+      delete rates[currencyCode];
+    }
+  });
+};
