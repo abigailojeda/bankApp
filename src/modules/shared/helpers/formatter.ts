@@ -51,7 +51,7 @@ export const formatNumberString = (
 
 export const formatStringNumber = (stringNumber: string | number): number => {
     if (typeof stringNumber === "string") {
-        const cleanedString = stringNumber.replace(/,/g, "");
+        const cleanedString = stringNumber.replace(/,/g, "").replace(/\s+/g, "");
         return parseFloat(cleanedString);
     }
 
