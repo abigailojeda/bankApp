@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { formatStringNumber, formatNumberString } from '../../shared/helpers/formatter';
 import { TransferAddForm } from '../types/transfer.types';
+import { AccountContext } from '../../account/states/AccountContext';
+import { isValidTransaction } from '../utils/transferUtils';
 
 interface AddTransferModalProps {
   onClose: () => void;
@@ -12,11 +14,18 @@ const AddTransferModal: React.FC<AddTransferModalProps> = ({ onClose, onAdd }) =
   const [description, setDescription] = useState('');
   const [type, setType] = useState('deposit'); 
   const [accountId, setAccountId] = useState('');
+  const { currentBalance } = useContext(AccountContext);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const inputAmount = formatStringNumber(amount);
+    const error = isValidTransaction(formatStringNumber(currentBalance), inputAmount, type);
+    if (error) {
+      alert(error.message);
+      return;
+    }
     onAdd({
-      amount: formatStringNumber(amount),
+      amount: inputAmount,
       description,
       type,
       accountId,
