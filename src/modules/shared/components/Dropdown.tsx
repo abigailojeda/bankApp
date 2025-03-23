@@ -72,7 +72,7 @@ export const Dropdown: React.FunctionComponent<DropdownProps> = ({ options, valu
 
     return (
         <>
-            <div  className="relative w-full dropdown-open"
+            <div  className="relative w-full rounded-md dropdown-open"
                 ref={referenceDivRef}
             >
                 {
@@ -93,10 +93,11 @@ export const Dropdown: React.FunctionComponent<DropdownProps> = ({ options, valu
                         />
 
                     ) : (
-                        <span 
-                        className="dropdown-open"
+                        <input type="text" readOnly
+                        value={displayValue}
+                        className="dropdown-open input-style cursor-pointer w-full"
                         onClick={() => setIsOpen(!isOpen)}
-                        >{displayValue}</span>
+                        />
                     )
                 }
 
@@ -111,7 +112,7 @@ export const Dropdown: React.FunctionComponent<DropdownProps> = ({ options, valu
                             {
                                 searchable && (
                                     <div className="border-b bg-primary sticky top-0 dropdown-open dark:border-bg border-gray p-4 mb-4">
-                                        <input  className="dropdown-open px-4 py-2 rounded-sm text-text w-full  outline-none border-none dark:bg-bg/50 bg-gray/50"autoFocus type="text" onChange={handleSearch} />
+                                        <input  className="dropdown-open input-style"autoFocus type="text" onChange={handleSearch} />
                                     </div>
                                 )
                             }
@@ -119,7 +120,7 @@ export const Dropdown: React.FunctionComponent<DropdownProps> = ({ options, valu
                             <div className="flex dropdown-open flex-col">
                                 {filteredOptions.map((option, index) => (
                                     <span
-                                        className="py-2 dropdown-open text-text px-4 hover:bg-secondary/90 cursor-pointer"
+                                        className="py-2 dropdown-open text-text px-4 hover:bg-gray/30 dark:hover:bg-bg/30 cursor-pointer"
                                         key={option.label + index}
                                         onClick={() => handleSelect(option.value)}
                                     >

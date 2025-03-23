@@ -63,7 +63,7 @@ const TransferProvider: React.FC<TransferProviderProps> = ({ children }) => {
   }
 
   const addTransfer = async (transferData: {
-    accountId: string;
+    accountId: number;
     amount: number;
     date?: string;
     type: string;

@@ -5,4 +5,5 @@ export interface FormComponentProps {
     fields: FormFieldProps[];
     initialValues: Record<string, string | number>;
     onSubmit: (values: Record<string, string | number>) => void;
-  }
+    validate?: (values: Record<string, string | number>) => { [key: string]: string };
+ }

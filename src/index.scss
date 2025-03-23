@@ -31,6 +31,10 @@
     .page-container {
         @apply container sm:px-8 px-6 w-full sm:pt-24 mx-auto flex sm:flex-row flex-col;
     }
+
+    .input-style {
+        @apply px-4 py-2 rounded-sm text-text w-full outline-none border-none dark:bg-bg/50 bg-gray/50;
+    }
 }
 
 body {

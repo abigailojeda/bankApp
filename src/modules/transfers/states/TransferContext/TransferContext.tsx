@@ -9,7 +9,7 @@ export interface TransferContextValue {
     totalExpenses?: string;
     refreshTransfers: () => void;
     addTransfer: (transferData: {
-        accountId: string;
+        accountId: number;
         amount: number;
         date?: string;
         type: string;

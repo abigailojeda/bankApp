@@ -1,30 +1,72 @@
 import React, { useContext, useState } from 'react';
 import { TransferContext } from '../states/TransferContext';
 import TransferItem from './TransferItem';
-import AddTransferModal from './AddTransferModal';
 import RealtimeTransferNotifier from './RealtimeTransferNotifier';
 import { ActionButton } from '../../shared/components/ActionButton';
 import { TransferIcon } from '../../shared/components/icons/TransferIcon';
 import useResponsiveItemCount from '../../shared/hooks/useResponsiveItemCount';
 import { Link } from 'react-router-dom';
 import { getVisibleTransfers } from '../utils/transferUtils';
-import { TransferAddForm } from '../types/transfer.types';
+import { TransferAddForm, transferFormFields } from '../types/transfer.types';
+import { Modal } from '../../shared/components/Modal';
+import { FormComponent } from '../../shared/components/forms/FormComponent';
+import { formatStringNumber } from '../../shared/helpers/formatter';
+import { AccountContext } from '../../account/states/AccountContext';
 
 const TransfersSummary: React.FC = () => {
   const { transfers, loading, error, addTransfer } = useContext(TransferContext);
+  const { currentAccount } = useContext(AccountContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const itemCount = useResponsiveItemCount(5, 3);
 
   const visibleTransfers = getVisibleTransfers(transfers, itemCount);
 
-  const handleAddTransfer = async (transferData:TransferAddForm) => {
+  const handleAddTransfer = async (values: Record<string, string | number>) => {
+    if (!currentAccount) return;
+    
+    const formattedValues: TransferAddForm = {
+      ...values,
+      amount: formatStringNumber(values.amount),
+      accountId: currentAccount.id,
+      type: String(values.type) || '',
+      description: String(values.description) || '',
+    };
+
     try {
-      await addTransfer(transferData);
+      await addTransfer(formattedValues);
       setIsModalOpen(false);
     } catch (err) {
       console.error('Error adding transfer:', err);
     }
+  };
+
+  const transferInitialValues = {
+    title: "",
+    amount: "",
+    date: new Date().toISOString().split("T")[0],
+    category: "",
+  };
+
+  const validateTransaction = (values: Record<string, string | number>) => {
+    const errors: { [key: string]: string } = {};
+  
+    const amountNum = Number(values.amount);
+    if (!values.amount || isNaN(amountNum) || amountNum <= 0) {
+      errors.amount = "Invalid amount.";
+    }
+  
+    if (values.type === "withdrawal" && currentAccount) {
+      if (amountNum > formatStringNumber(currentAccount.current_balance)) {
+        errors.amount = "Insufficient funds.";
+      }
+    }
+  
+    if (!values.description) {
+      errors.description = "Description is required.";
+    }
+  
+    return errors;
   };
 
   if (loading) return <p>Loading...</p>;
@@ -65,11 +107,13 @@ const TransfersSummary: React.FC = () => {
 
       </div>
 
-
       {isModalOpen && (
-        <AddTransferModal
+        <Modal
+          title='Add Transfer'
+          isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
-          onAdd={handleAddTransfer}
+          ChildComponent={(props) => <FormComponent {...props} fields={transferFormFields} initialValues={transferInitialValues}
+            onSubmit={handleAddTransfer} onClose={() => setIsModalOpen(false)} validate={validateTransaction}/>}
         />
       )}
     </>

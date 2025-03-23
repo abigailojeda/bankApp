@@ -60,7 +60,7 @@ export async function getTransfers(): Promise<TransferResponse[]> {
 }
 
 export async function addTransferService(transferData: {
-  accountId: string;
+  accountId: number;
   amount: number;
   date?: string;
   type: string;

@@ -1,4 +1,3 @@
-// hooks/useForm.ts
 import { ChangeEvent, useState } from "react";
 
 interface FormState {
