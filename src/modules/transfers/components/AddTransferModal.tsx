@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { formatStringNumber, formatNumberString } from '../../shared/helpers/formatter';
-import { TransferAddForm } from '../types/transfer.types';
+import { TransferAddForm, TransferTypeKey } from '../types/transfer.types';
 import { AccountContext } from '../../account/states/AccountContext';
 import { isValidTransaction } from '../utils/transferUtils';
 
@@ -12,7 +12,7 @@ interface AddTransferModalProps {
 const AddTransferModal: React.FC<AddTransferModalProps> = ({ onClose, onAdd }) => {
   const [amount, setAmount] = useState<string>('');
   const [description, setDescription] = useState('');
-  const [type, setType] = useState('deposit'); 
+  const [type, setType] = useState<TransferTypeKey>('deposit'); 
   const [accountId, setAccountId] = useState('');
   const { currentBalance } = useContext(AccountContext);
 
@@ -62,7 +62,7 @@ const AddTransferModal: React.FC<AddTransferModalProps> = ({ onClose, onAdd }) =
             <label className="block mb-1">Category:</label>
             <select
               value={type}
-              onChange={(e) => setType(e.target.value)}
+              onChange={(e) => setType(e.target.value as TransferTypeKey)}
               className="w-full border p-2"
             >
               <option value="deposit">Deposit</option>

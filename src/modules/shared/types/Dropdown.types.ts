@@ -6,7 +6,8 @@ export type DropdownOption = {
 export type DropdownProps = {
     options: DropdownOption[];
     hasActionButton: boolean;
-    selectedValue: string;
+    value: string;
     onSelect: (value: string) => void;
     searchable?: boolean;
+    placeholder?: string;
 };

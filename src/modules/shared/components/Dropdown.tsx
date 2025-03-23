@@ -2,7 +2,7 @@ import { useState, useRef, ChangeEvent, useEffect } from "react";
 import { DropdownProps } from "../types/Dropdown.types";
 import { ActionButton } from "./ActionButton";
 
-export const Dropdown: React.FunctionComponent<DropdownProps> = ({ options, selectedValue, onSelect, searchable, hasActionButton }) => {
+export const Dropdown: React.FunctionComponent<DropdownProps> = ({ options, value, onSelect, searchable, hasActionButton, placeholder }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [search, setSearch] = useState("");
     const [filteredOptions, setFilteredOptions] = useState(options);
@@ -32,6 +32,13 @@ export const Dropdown: React.FunctionComponent<DropdownProps> = ({ options, sele
         setIsOpen(false);
         setSearch("");
     }
+    
+    const getLabel = (value: string) => {
+        const option = options.find((option) => option.value === value);
+        return option ? option.label : "";
+    }
+    
+    const displayValue = value && value.trim() !== "" ? getLabel(value) : placeholder || "Choose an option";
 
     useEffect(() => {
 
@@ -72,7 +79,7 @@ export const Dropdown: React.FunctionComponent<DropdownProps> = ({ options, sele
                     hasActionButton ? (
 
                         <ActionButton
-                            text={selectedValue}
+                            text={value}
                             click={() =>setIsOpen(!isOpen)}
                             fontWeight="font-semibold"
                             hasBackground={true}
@@ -89,7 +96,7 @@ export const Dropdown: React.FunctionComponent<DropdownProps> = ({ options, sele
                         <span 
                         className="dropdown-open"
                         onClick={() => setIsOpen(!isOpen)}
-                        > {selectedValue}</span>
+                        >{displayValue}</span>
                     )
                 }
 
@@ -104,7 +111,7 @@ export const Dropdown: React.FunctionComponent<DropdownProps> = ({ options, sele
                             {
                                 searchable && (
                                     <div className="border-b bg-primary sticky top-0 dropdown-open dark:border-bg border-gray p-4 mb-4">
-                                        <input className="dropdown-open px-4 py-2 rounded-sm text-text w-full  outline-none border-none dark:bg-bg/50 bg-gray/50"autoFocus type="text" onChange={handleSearch} />
+                                        <input  className="dropdown-open px-4 py-2 rounded-sm text-text w-full  outline-none border-none dark:bg-bg/50 bg-gray/50"autoFocus type="text" onChange={handleSearch} />
                                     </div>
                                 )
                             }

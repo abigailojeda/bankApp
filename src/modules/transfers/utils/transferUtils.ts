@@ -1,5 +1,5 @@
 import { formatDate } from "../../shared/helpers/formatter";
-import { Transfer } from "../types/transfer.types";
+import { Transfer, TransferTypeKey } from "../types/transfer.types";
 
 export const getVisibleTransfers = (transfers: Transfer[], itemCount: number) =>
     transfers
@@ -10,7 +10,7 @@ export const getVisibleTransfers = (transfers: Transfer[], itemCount: number) =>
         date: formatDate(Number(transfer.date))
       }));
 
-export const isValidTransaction = (currentBalance: number, amount: number, type: string) => {
+export const isValidTransaction = (currentBalance: number, amount: number, type: TransferTypeKey) => {
     if (Number.isNaN(amount)) return new Error('Invalid amount');
 
     if (type === 'withdrawal' && Number(amount) > Number(currentBalance)) {

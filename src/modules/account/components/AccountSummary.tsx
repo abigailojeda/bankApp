@@ -55,7 +55,7 @@ export const AccountSummary = () => {
                <div className="w-fit">
                <Dropdown
                     options={currencyOptions}
-                    selectedValue={currency}
+                    value={currency}
                     onSelect={handleUpdateCurrency}
                     searchable={true}
                     hasActionButton={true}
