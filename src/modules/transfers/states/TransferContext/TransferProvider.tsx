@@ -4,6 +4,7 @@ import { getTransfers, addTransferService } from '../../services/transfer.servic
 import { TransferContext } from './TransferContext';
 import { formatAmountDisplayed } from '../../../shared/helpers/formatter';
 import { AccountContext } from '../../../account/states/AccountContext';
+import { CurrencyContext } from '../../../account/states/CurrencyContext';
 
 interface TransferProviderProps {
   children: React.ReactNode;
@@ -11,24 +12,25 @@ interface TransferProviderProps {
 
 const TransferProvider: React.FC<TransferProviderProps> = ({ children }) => {
   const [transfers, setTransfers] = useState<Transfer[]>([]);
+  const [transfersResponse, setTransfersResponse] = useState<TransferResponse[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<Error | null>(null);
   const [totalIncomes, setTotalIncomes] = useState<string>('0');
   const [totalExpenses, setTotalExpenses] = useState<string>('0');
   const { currency: currentCurrency } = useContext(AccountContext);
+  const { convertCurrency, exchangeRates } = useContext(CurrencyContext);
 
   const fetchTransfers = async () => {
     setLoading(true);
     try {
       const data = await getTransfers();
+      setTransfersResponse(data);
       const formattedData = data.map((transfer: TransferResponse) => ({
         ...transfer,
         amount: formatAmountDisplayed(transfer.amount, transfer.currency),
         current_balance: formatAmountDisplayed(transfer.current_balance, transfer.currency),
       }));
       setTransfers(formattedData);
-      calculateTotalIncomes(data);
-      calculateTotalExpenses(data);
       setError(null);
     } catch (err) {
       setError(err instanceof Error ? err : new Error(String(err)));
@@ -38,23 +40,25 @@ const TransferProvider: React.FC<TransferProviderProps> = ({ children }) => {
     }
   };
 
-  const calculateTotalIncomes = (data:TransferResponse[]) => {
+  const calculateTotalIncomes = () => {
     let total = 0;
-    data.forEach((transfer:TransferResponse) => {
+    transfersResponse.forEach((transfer:TransferResponse) => {
       if (transfer.type === 'deposit') {
         total += transfer.amount;
       }
     });
+    total = convertCurrency(total, currentCurrency) 
     setTotalIncomes(formatAmountDisplayed(total, currentCurrency));
   }
 
-  const calculateTotalExpenses = (data:TransferResponse[]) => {
+  const calculateTotalExpenses = () => {
     let total = 0;
-    data.forEach((transfer:TransferResponse) => {
+    transfersResponse.forEach((transfer:TransferResponse) => {
       if (transfer.type === 'withdrawal') {
         total += transfer.amount;
       }
     });
+    total = convertCurrency(total, currentCurrency)
     setTotalExpenses(formatAmountDisplayed(total, currentCurrency));
   }
 
@@ -76,6 +80,11 @@ const TransferProvider: React.FC<TransferProviderProps> = ({ children }) => {
     fetchTransfers();
   }, []);
 
+  useEffect(() => {
+    calculateTotalIncomes();
+    calculateTotalExpenses();
+  }, [transfersResponse, currentCurrency, exchangeRates]);  
+
   return (
     <TransferContext.Provider
       value={{
@@ -85,7 +94,9 @@ const TransferProvider: React.FC<TransferProviderProps> = ({ children }) => {
         totalIncomes,
         totalExpenses,
         refreshTransfers: fetchTransfers,
-        addTransfer, 
+        addTransfer,
+        calculateTotalIncomes,
+        calculateTotalExpenses
       }}
     >
       {children}

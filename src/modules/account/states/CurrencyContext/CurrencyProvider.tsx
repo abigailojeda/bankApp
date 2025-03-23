@@ -37,6 +37,7 @@ const CurrencyProvider: React.FC<CurrencyProviderProps> = ({ children }) => {
         target: string
     ): number => {
         //! Floating point arithmetic is imprecise for currency, but the free API doesn't support conversions, temporarily using this method
+        target = target.toLowerCase();
         const rate = currencyRates[target];
         return amount * rate;
     };

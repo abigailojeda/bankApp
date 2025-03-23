@@ -12,7 +12,7 @@ import { formatStringNumber } from "../../shared/helpers/formatter";
 export const AccountSummary = () => {
     const { currentBalance, currency, loading, error, updateCurrency } = useContext(AccountContext);
     const { user, loading: loadingAuth, error: errorAuth } = useContext(AuthContext);
-    const { totalIncomes, totalExpenses } = useContext(TransferContext);
+    const { totalIncomes, totalExpenses, calculateTotalIncomes, calculateTotalExpenses } = useContext(TransferContext);
     const { exchangeRates, convertCurrency } = useContext(CurrencyContext);
 
     if (loading || loadingAuth) {
@@ -30,6 +30,8 @@ export const AccountSummary = () => {
     const handleUpdateCurrency = async (currency: string) => {
         try {
             const balance = convertCurrency(formatStringNumber(currentBalance), currency);
+            calculateTotalIncomes();
+            calculateTotalExpenses();
             await updateCurrency(balance, currency);
 
         } catch (err) {
