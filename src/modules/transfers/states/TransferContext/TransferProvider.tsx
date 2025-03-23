@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Transfer, TransferResponse } from '../../types/transfer.types';
-import { getTransfers, addTransferService } from '../../services/transfer.service';
+import { getTransfers, addTransferService, updateTransferService, undoTransferService, deleteTransferService } from '../../services/transfer.service';
 import { TransferContext } from './TransferContext';
 import { formatAmountDisplayed } from '../../../shared/helpers/formatter';
 import { AccountContext } from '../../../account/states/AccountContext';
@@ -42,18 +42,18 @@ const TransferProvider: React.FC<TransferProviderProps> = ({ children }) => {
 
   const calculateTotalIncomes = () => {
     let total = 0;
-    transfersResponse.forEach((transfer:TransferResponse) => {
+    transfersResponse.forEach((transfer: TransferResponse) => {
       if (transfer.type === 'deposit') {
         total += transfer.amount;
       }
     });
-    total = convertCurrency(total, currentCurrency) 
+    total = convertCurrency(total, currentCurrency)
     setTotalIncomes(formatAmountDisplayed(total, currentCurrency));
   }
 
   const calculateTotalExpenses = () => {
     let total = 0;
-    transfersResponse.forEach((transfer:TransferResponse) => {
+    transfersResponse.forEach((transfer: TransferResponse) => {
       if (transfer.type === 'withdrawal') {
         total += transfer.amount;
       }
@@ -76,6 +76,37 @@ const TransferProvider: React.FC<TransferProviderProps> = ({ children }) => {
     }
   };
 
+  const updateTransfer = async (transferData: {
+    id: string;
+    accountId: number;
+    amount: number;
+    date?: string;
+    type: string;
+    description: string;
+  }) => {
+    try {
+      await updateTransferService(transferData);
+    } catch (err) {
+      setError(err instanceof Error ? err : new Error(String(err)));
+    }
+  }
+
+  const deleteTransfer = async (transferId: string) => {
+    try {
+      await deleteTransferService(transferId);
+    } catch (err) {
+      setError(err instanceof Error ? err : new Error(String(err)));
+    }
+  }
+
+  const undoTransfer = async (transferId: string) => {
+    try {
+      await undoTransferService(transferId);
+    } catch (err) {
+      setError(err instanceof Error ? err : new Error(String(err)));
+    }
+  }
+
   useEffect(() => {
     fetchTransfers();
   }, []);
@@ -83,7 +114,7 @@ const TransferProvider: React.FC<TransferProviderProps> = ({ children }) => {
   useEffect(() => {
     calculateTotalIncomes();
     calculateTotalExpenses();
-  }, [transfersResponse, currentCurrency, exchangeRates]);  
+  }, [transfersResponse, currentCurrency, exchangeRates]);
 
   return (
     <TransferContext.Provider
@@ -95,6 +126,9 @@ const TransferProvider: React.FC<TransferProviderProps> = ({ children }) => {
         totalExpenses,
         refreshTransfers: fetchTransfers,
         addTransfer,
+        updateTransfer,
+        deleteTransfer,
+        undoTransfer,
         calculateTotalIncomes,
         calculateTotalExpenses
       }}

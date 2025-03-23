@@ -15,6 +15,16 @@ export interface TransferContextValue {
         type: string;
         description: string;
     }) => void;
+    updateTransfer: (transferData: {
+        id: string;
+        accountId: number;
+        amount: number;
+        date?: string;
+        type: string;
+        description: string;
+    }) => void;
+    deleteTransfer: (transferId: string) => void;
+    undoTransfer: (transferId: string) => void;
     calculateTotalIncomes: () => void;
     calculateTotalExpenses: () => void;
 }
@@ -27,6 +37,9 @@ export const TransferContext = createContext<TransferContextValue>({
     error: null,
     refreshTransfers: () => { },
     addTransfer: () => { },
+    updateTransfer: () => { },
+    deleteTransfer: () => { },
+    undoTransfer: () => { },
     calculateTotalIncomes: () => { },
     calculateTotalExpenses: () => { }
 });

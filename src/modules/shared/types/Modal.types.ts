@@ -4,3 +4,9 @@ export interface ModalProps {
   onClose: () => void;
   title?: string;
 }
+
+export interface ConfirmationComponentProps {
+  message: string;
+  onConfirm: () => void;
+  onClose: () => void;
+}
