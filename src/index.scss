@@ -28,11 +28,11 @@
 
 @layer components {
     .card-style {
-        @apply sm:w-[392px] w-full sm:mr-8 sm:mb-0 mb-4 bg-primary rounded-lg shadow-md p-4;
+        @apply sm:w-[392px] w-full sm:mb-0 mb-4 bg-primary rounded-lg shadow-md p-4;
     }
 
     .page-container {
-        @apply container sm:px-8 px-6 w-full sm:pt-24 pb-12 mx-auto flex sm:flex-row flex-col;
+        @apply container sm:px-8 px-6 w-full sm:pt-24 gap-x-4 items-start m-0 pb-12  flex sm:flex-row flex-col;
     }
 
     .input-style {
