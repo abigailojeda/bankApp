@@ -24,6 +24,7 @@
 ## PROJECT SETTINGS ⚙️    
 
 ➜ npm install  
+➜ npm run dev  
 
 You need to create a .env file for configuration:
 ```javascript
