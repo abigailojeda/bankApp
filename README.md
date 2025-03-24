@@ -20,7 +20,16 @@
 
 ➜ [Backend repo](https://github.com/abigailojeda/bankapi)
   
----
+---  
+## PROJECT SETTINGS⚙️    
+
+➜ npm install  
+
+You need to create a .env file for configuration:
+```javascript
+VITE_SERVER_URL
+VITE_WS_URL
+```
 
 ## TESTING
 
