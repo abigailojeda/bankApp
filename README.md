@@ -12,7 +12,7 @@
 ➜ [Demo](https://bank-app-lake-eight.vercel.app/)  
 
 ---  
-## REALTIME NOTIFICATIONS  
+## REALTIME NOTIFICATIONS 🔔
 
 ![](screenshots/realtime.png)  
    
@@ -21,7 +21,7 @@
 ➜ [Backend repo](https://github.com/abigailojeda/bankapi)
   
 ---  
-## PROJECT SETTINGS⚙️    
+## PROJECT SETTINGS ⚙️    
 
 ➜ npm install  
 
@@ -31,9 +31,9 @@ VITE_SERVER_URL
 VITE_WS_URL
 ```
 
-## TESTING
+## TESTING 🧾👌
 
-This project uses Vitest along with React Testing Library for unit tests.
+This project uses Vitest
 
 ### Running Tests
 
@@ -43,7 +43,7 @@ To run all tests, execute:
 npm run test
 ```
 
-## CI/CD
+## CI/CD 🚀
 
 This project uses **GitHub Actions** for continuous integration and **Vercel** for continuous deployment. The workflow is defined in [`.github/workflows/deploy.yml`](./.github/workflows/deploy.yml) and is triggered on every push to the `dev` branch. Here’s how it works:
 
@@ -60,7 +60,7 @@ This project uses **GitHub Actions** for continuous integration and **Vercel** f
    Finally, it deploys the built project to Vercel 
    - Deployment credentials (like `VERCEL_TOKEN`, `VERCEL_ORG_ID`, and `VERCEL_PROJECT_ID`) are stored as **GitHub repository secrets**.
 
-## DEPENDENCIES
+## DEPENDENCIES 📚
 
 ### Toastify
 
