@@ -1,8 +1,14 @@
 # Magic Bank 🏦🏧✨
 
 ---
-➜ [Design in progress in Figma](https://www.figma.com/design/TkhEV41wN9rf4U8OvBwHuy/MagicBank-Design)
+➜ [Design in progress in Figma](https://www.figma.com/design/TkhEV41wN9rf4U8OvBwHuy/MagicBank-Design)  
 
+---  
+➜ [Demo](https://bank-app-lake-eight.vercel.app/)  
+
+---  
+➜ [Backend repo](https://github.com/abigailojeda/bankapi)
+  
 ---
 
 ## TESTING
@@ -31,7 +37,7 @@ This project uses **GitHub Actions** for continuous integration and **Vercel** f
    If the tests pass, the workflow executes the build script (`npm run build`), which compiles TypeScript and bundles the app with Vite.
 
 4. **Deploy to Vercel**  
-   Finally, it deploys the built project to Vercel using the [amondnet/vercel-action](https://github.com/amondnet/vercel-action).  
+   Finally, it deploys the built project to Vercel 
    - Deployment credentials (like `VERCEL_TOKEN`, `VERCEL_ORG_ID`, and `VERCEL_PROJECT_ID`) are stored as **GitHub repository secrets**.
 
 ## DEPENDENCIES
@@ -39,3 +45,11 @@ This project uses **GitHub Actions** for continuous integration and **Vercel** f
 ### Toastify
 
 [Documentation](https://fkhadra.github.io/react-toastify/introduction/)
+
+### Apollo
+
+[Documentation](https://www.apollographql.com/docs/react)
+
+### Papaparse  
+
+[Documentation](https://www.papaparse.com/docs)
