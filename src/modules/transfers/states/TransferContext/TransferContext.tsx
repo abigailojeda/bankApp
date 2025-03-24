@@ -16,6 +16,8 @@ export interface TransferContextValue {
     transferData: Record<string, string | number>,
     operation?: 'add' | 'update' | 'undo' | 'delete'
   ) => { [key: string]: string };
+  calculateTotalIncomes: () => void;
+  calculateTotalExpenses: () => void;
 }
 
 export const TransferContext = createContext<TransferContextValue>({
@@ -30,4 +32,6 @@ export const TransferContext = createContext<TransferContextValue>({
   undoTransfer: async () => {},
   refreshTransfers: async () => {},
   validateTransferData: () => ({}),
+  calculateTotalIncomes: () => {},
+  calculateTotalExpenses: () => {},
 }); 

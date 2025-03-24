@@ -163,6 +163,8 @@ const TransferProvider: React.FC<TransferProviderProps> = ({ children }) => {
         undoTransfer,
         refreshTransfers: fetchTransfers,
         validateTransferData,
+        calculateTotalIncomes,
+        calculateTotalExpenses,
       }}
     >
       {children}
