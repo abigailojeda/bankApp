@@ -15,6 +15,7 @@ import { ConfirmationComponent } from '../../shared/components/ConfirmationCompo
 interface TransferItemProps {
   transfer: Transfer;
   isLast: boolean;
+  isSummary?: boolean;
 }
 
 interface ConfirmModal {
@@ -23,7 +24,7 @@ interface ConfirmModal {
   error?: string;
 }
 
-const TransferItem: React.FC<TransferItemProps> = ({ transfer, isLast }) => {
+const TransferItem: React.FC<TransferItemProps> = ({ transfer, isLast, isSummary }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showCopyModal, setShowCopyModal] = useState(false);
@@ -153,8 +154,8 @@ const TransferItem: React.FC<TransferItemProps> = ({ transfer, isLast }) => {
   };
 
   return (
-    <div className="sm:border-none border border-gray dark:border-bg rounded-lg p-4 mb-4 sm:p-0 ">
-      <div className="w-full relative flex justify-between ">
+    <div className={`sm:border-none border  rounded-lg p-4 mb-4 sm:p-0 ${!isSummary ? 'border-subtitle/60 dark:border-secondary' : 'border-gray dark:border-bg'}`}>
+      <div className={`w-full relative flex justify-between  ${isSummary ? ' sm:p-0 ' : 'sm:p-2 rounded-md'}`}>
 
         <div className="flex items-center">
 
@@ -213,7 +214,8 @@ const TransferItem: React.FC<TransferItemProps> = ({ transfer, isLast }) => {
               {
                 isHovered && (
 
-                  <div className='absolute flex gap-x-4 justify-center items-center left-0 top-0 h-full w-full flex items-center bg-primary/90'>
+                  <div className={`absolute flex gap-x-4 justify-center items-center left-0 top-0 h-full w-full flex items-center 
+                  ${!isSummary ? 'bg-primary/60' : 'bg-primary/90'}`}>
                     <TransferItemActions
                       setShowEditModal={setShowEditModal}
                       setShowCopyModal={setShowCopyModal}
@@ -241,7 +243,8 @@ const TransferItem: React.FC<TransferItemProps> = ({ transfer, isLast }) => {
 
       {
         transfer.type !== 'reversal' && (
-          <div className="flex sm:hidden items-center w-full gap-x-4 mt-4 pt-2  justify-center border-t border-gray dark:border-bg">
+          <div className={`flex sm:hidden items-center w-full gap-x-4 mt-4 pt-2  justify-center border-t  
+          ${!isSummary ? 'border-subtitle/60 dark:border-secondary' : 'border-gray dark:border-bg'}`}>
 
             <TransferItemActions
               setShowEditModal={setShowEditModal}

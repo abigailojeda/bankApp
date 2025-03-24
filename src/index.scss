@@ -46,6 +46,10 @@
     .confirm-button {
         @apply px-4 py-1 bg-purple border border-transparent cursor-pointer font-semibold text-primary rounded-md hover:bg-purple/80;
     }
+
+    .footer-style {
+        @apply w-full bg-primary/60 backdrop-blur-md bottom-0 left-0 z-30 fixed flex sm:hidden justify-center items-center py-4;
+    }
 }
 
 body {

@@ -9,6 +9,7 @@ export interface FormFieldProps {
     placeholder?: string;
     required?: boolean;
     height?: string;
+    backgroundColor?: string;
     onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   }
   

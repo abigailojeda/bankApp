@@ -5,11 +5,12 @@ export const InputDate: React.FC<FormFieldProps> = ({
   value,
   placeholder,
   required,
+  backgroundColor,
   onChange,
 }) => {
   return (
     <input
-      className='input-style mt-2'
+      className={`input-style mt-2 ${backgroundColor}`}
       type="date"
       name={name}
       value={value}

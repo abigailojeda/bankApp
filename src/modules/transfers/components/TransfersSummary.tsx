@@ -6,7 +6,6 @@ import { ActionButton } from '../../shared/components/ActionButton';
 import { TransferIcon } from '../../shared/components/icons/TransferIcon';
 import useResponsiveItemCount from '../../shared/hooks/useResponsiveItemCount';
 import { Link } from 'react-router-dom';
-import { getVisibleTransfers } from '../utils/transferUtils';
 import { TransferAddForm, transferFormFields } from '../types/transfer.types';
 import { Modal } from '../../shared/components/Modal';
 import { FormComponent } from '../../shared/components/forms/FormComponent';
@@ -21,7 +20,7 @@ const TransfersSummary: React.FC = () => {
 
   const itemCount = useResponsiveItemCount(5, 3);
 
-  const visibleTransfers = getVisibleTransfers(transfers, itemCount);
+  const visibleTransfers = transfers.slice(0, itemCount);
 
   const handleAddTransfer = async (values: Record<string, string | number>) => {
     if (!currentAccount) return;
@@ -72,7 +71,7 @@ const TransfersSummary: React.FC = () => {
         </div>
 
         {visibleTransfers.map((transfer, index) => (
-          <TransferItem key={transfer.id} transfer={transfer} isLast={index === 0} />
+          <TransferItem key={transfer.id} transfer={transfer} isLast={index === 0} isSummary={true}/>
         ))}
 
         <div className='border-t dark:border-bg border-gray mt-4 '>

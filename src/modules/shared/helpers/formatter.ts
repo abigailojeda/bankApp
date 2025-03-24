@@ -78,4 +78,26 @@ export const formatCardNumberString = (cardNumber: string): string => {
   const cleanedValue = cardNumber.replace(/[^0-9]/g, "");
   const parts = cleanedValue.match(/.{1,4}/g);
   return parts ? parts.join("-") : "";
-}
+};
+
+export const parseDate = (dateString: string) => {
+  if (!dateString) return null;
+  if (dateString.includes("-")) {
+    // ISO format "yyyy-mm-dd"
+    const parts = dateString.split("-");
+    if (parts.length !== 3) return null;
+    const year = parseInt(parts[0], 10);
+    const month = parseInt(parts[1], 10) - 1; // 0-indexed month
+    const day = parseInt(parts[2], 10);
+    return new Date(year, month, day);
+  } else if (dateString.includes("/")) {
+    // Format "dd/mm/aaaa"
+    const parts = dateString.split("/");
+    if (parts.length !== 3) return null;
+    const day = parseInt(parts[0], 10);
+    const month = parseInt(parts[1], 10) - 1;
+    const year = parseInt(parts[2], 10);
+    return new Date(year, month, day);
+  }
+  return null;
+};

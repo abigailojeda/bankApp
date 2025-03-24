@@ -8,6 +8,7 @@ import { AccountContext } from "../../account/states/AccountContext";
 import { AuthContext } from "../../auth/states/AuthContext/AuthContext";
 import { TransferContext } from "../../transfers/states/TransferContext";
 import { DashboardLoading } from "./DashboardLoading";
+import { Footer } from "../../shared/components/Footer";
 
 export const DashboardPage = () => {
 
@@ -45,7 +46,7 @@ export const DashboardPage = () => {
 
                 </div>
             }
-
+            <Footer />
         </>
     );
 }

@@ -6,6 +6,7 @@ import { formatAmountDisplayed } from '../../../shared/helpers/formatter';
 import { AccountContext } from '../../../account/states/AccountContext';
 import { CurrencyContext } from '../../../account/states/CurrencyContext';
 import { validateTransaction } from '../../utils/validationUtils';
+import { sortTransfers } from '../../utils/transferUtils';
 
 interface TransferProviderProps {
   children: React.ReactNode;
@@ -31,7 +32,7 @@ const TransferProvider: React.FC<TransferProviderProps> = ({ children }) => {
         amount: formatAmountDisplayed(transfer.amount, transfer.currency),
         current_balance: formatAmountDisplayed(transfer.current_balance, transfer.currency),
       }));
-      setTransfers(formattedData);
+      setTransfers(sortTransfers(formattedData));
       setError(null);
     } catch (err) {
       setError(err instanceof Error ? err : new Error(String(err)));
