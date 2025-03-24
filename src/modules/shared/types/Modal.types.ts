@@ -7,6 +7,7 @@ export interface ModalProps {
 
 export interface ConfirmationComponentProps {
   message: string;
+  error?: string;
   onConfirm: () => void;
   onClose: () => void;
 }

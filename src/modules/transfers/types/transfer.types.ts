@@ -1,8 +1,10 @@
 import { FormFieldProps } from "../../shared/types/FormField.types";
 
-export type TransferTypeKey = "reversal" | "deposit" | "withdrawal";
+export type TransferTypeKey = "updated" | "voided" | "reversal" | "deposit" | "withdrawal";
 
 export const TransferTypeColorMap: Record<TransferTypeKey, string> = {
+  updated: "text-blue",
+  voided: "text-blue",
   reversal: "text-orange",
   deposit: "text-greentoaster",
   withdrawal: "text-redtoaster",
@@ -34,24 +36,31 @@ export interface TransferAddForm {
 }
 
 export const transferFormFields: FormFieldProps[] = [
-  { name: "amount", label: "Amount", type: "number", required: true },
-  { name: "date", label: "Date", type: "date", required: true },
-  {
-    name: "type",
-    label: "Type",
-    type: "dropdown",
-    required: true,
-    options: [
-      { label: "Deposit", value: "deposit" },
-      { label: "Withdrawal", value: "withdrawal" },
-    ],
-    placeholder: "Select a type"
-  },
   {
     name: "description",
     label: "Description",
     type: "text",
     required: true,
-    placeholder: "Enter a description"
+    placeholder: "Enter a description",
+  },
+  {
+    name: "amount",
+    label: "Amount",
+    type: "number",
+    required: true,
+    placeholder: "Insert an amount",
+  },
+  { name: "date", label: "Date", type: "date", required: true },
+  {
+    name: "type",
+    label: "Transaction type",
+    type: "dropdown",
+    height: "500",
+    required: true,
+    options: [
+      { label: "Deposit", value: "deposit" },
+      { label: "Withdrawal", value: "withdrawal" },
+    ],
+    placeholder: "Select a type",
   },
 ];

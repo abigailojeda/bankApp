@@ -21,7 +21,7 @@ export const InputNumber: React.FC<FormFieldProps> = ({
 
   return (
     <input
-      className='input-style'
+      className='input-style mt-2'
       type="text"
       name={name}
       value={value}

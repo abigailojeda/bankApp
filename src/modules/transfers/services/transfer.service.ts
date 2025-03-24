@@ -1,4 +1,3 @@
-// src/modules/transfers/services/transfer.service.ts
 import { TransferResponse } from '../types/transfer.types';
 
 const GET_TRANSFERS_QUERY = `

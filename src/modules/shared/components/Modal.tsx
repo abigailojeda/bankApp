@@ -11,13 +11,13 @@ export const Modal: React.FC<ModalProps> = ({
     return (
         <div className={`
             ${isOpen ? "block" : "hidden"}
-            fixed w-full inset-0 flex items-center justify-center z-50
+            fixed w-full inset-0 flex items-center  justify-center z-50
           `}>
 
             <div onClick={onClose} className={`fixed w-full inset-0 flex items-center justify-center dark:bg-darkbg/80 bg-darkbg/60 `}>
             </div>
 
-            <div className=" card-style p-8 w-full sm:max-w-md max-w-[95vw] z-60">
+            <div className="card-style p-8 w-full sm:max-w-md max-w-[95vw] z-60">
 
                 {
                     title && (

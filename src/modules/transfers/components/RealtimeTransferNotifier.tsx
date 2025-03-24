@@ -20,23 +20,42 @@ const RealtimeTransferNotifier: React.FC = () => {
   }
 
   const displayToaster = (message: ToasterMessage) => {
-
     toast(() => <Toaster message={message} />);
   };
 
+  const getActionMessage = (changeType: string) => {
+    switch (changeType) {
+      case 'CREATED':
+        return 'New transaction on your account';
+      case 'UPDATED':
+        return 'Transaction updated';
+      case 'VOIDED':
+        return 'Transaction deleted';
+      case 'UNDONE':
+        return 'Transaction undone';
+      default:
+        return 'Transaction changed';
+    }
+  };
 
   useEffect(() => {
     (async () => {
       if (data?.transactionChanged) {
-        const { transaction } = data.transactionChanged;
+        const { transaction, changeType } = data.transactionChanged;
 
         const toasterMessage: ToasterMessage = {
-          title: 'New transaction on your account',
+          title: getActionMessage(changeType),
           subtitle: `${transaction.description}`,
-          content: `${transaction.type === 'withdrawal' ? '-' : '+'}${formatAmountDisplayed(transaction.amount, transaction.currency)}`,
+          content: `${transaction.type === 'withdrawal' ? '-' : ''}${transaction.type === 'deposit' ?  '+' : ''}${formatAmountDisplayed(transaction.amount, transaction.currency)}`,
         };
 
-        toasterMessage.color = TransferTypeColorMap[transaction.type as TransferTypeKey];
+        console.log(changeType, transaction.type);
+        if (changeType === 'VOIDED' || changeType === 'UPDATED') {
+          toasterMessage.color = TransferTypeColorMap[changeType.toLowerCase() as TransferTypeKey];
+        }
+        else {
+          toasterMessage.color = TransferTypeColorMap[transaction.type as TransferTypeKey];
+        }
         updateState(transaction.updatedBalance);
 
         displayToaster(toasterMessage);

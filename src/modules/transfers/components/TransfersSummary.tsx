@@ -12,10 +12,11 @@ import { Modal } from '../../shared/components/Modal';
 import { FormComponent } from '../../shared/components/forms/FormComponent';
 import { formatStringNumber } from '../../shared/helpers/formatter';
 import { AccountContext } from '../../account/states/AccountContext';
+import { validateTransaction } from '../utils/validationUtils';
 
 const TransfersSummary: React.FC = () => {
   const { transfers, loading, error, addTransfer } = useContext(TransferContext);
-  const { currentAccount } = useContext(AccountContext);
+  const { currentAccount, currentBalance } = useContext(AccountContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const itemCount = useResponsiveItemCount(5, 3);
@@ -48,27 +49,6 @@ const TransfersSummary: React.FC = () => {
     category: "",
   };
 
-  const validateTransaction = (values: Record<string, string | number>) => {
-    const errors: { [key: string]: string } = {};
-  
-    const amountNum = Number(values.amount);
-    if (!values.amount || isNaN(amountNum) || amountNum <= 0) {
-      errors.amount = "Invalid amount.";
-    }
-  
-    if (values.type === "withdrawal" && currentAccount) {
-      if (amountNum > formatStringNumber(currentAccount.current_balance)) {
-        errors.amount = "Insufficient funds.";
-      }
-    }
-  
-    if (!values.description) {
-      errors.description = "Description is required.";
-    }
-  
-    return errors;
-  };
-
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
@@ -94,8 +74,8 @@ const TransfersSummary: React.FC = () => {
 
         </div>
 
-        {visibleTransfers.map((transfer) => (
-          <TransferItem key={transfer.id} transfer={transfer} />
+        {visibleTransfers.map((transfer, index) => (
+          <TransferItem key={transfer.id} transfer={transfer} isLast={index === 0} />
         ))}
 
         <div className='border-t dark:border-bg border-gray mt-4 '>
@@ -112,8 +92,13 @@ const TransfersSummary: React.FC = () => {
           title='Add Transfer'
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
-          ChildComponent={(props) => <FormComponent {...props} fields={transferFormFields} initialValues={transferInitialValues}
-            onSubmit={handleAddTransfer} onClose={() => setIsModalOpen(false)} validate={validateTransaction}/>}
+          ChildComponent={(props) => <FormComponent {...props} 
+            fields={transferFormFields} 
+            initialValues={transferInitialValues}
+            onSubmit={handleAddTransfer} 
+            onClose={() => setIsModalOpen(false)} 
+            validate={(values) => validateTransaction(values, currentBalance, currentAccount, 'add')}
+          />}
         />
       )}
     </>

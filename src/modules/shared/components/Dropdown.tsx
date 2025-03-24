@@ -2,11 +2,23 @@ import { useState, useRef, ChangeEvent, useEffect } from "react";
 import { DropdownProps } from "../types/Dropdown.types";
 import { ActionButton } from "./ActionButton";
 
-export const Dropdown: React.FunctionComponent<DropdownProps> = ({ options, value, onSelect, searchable, hasActionButton, placeholder }) => {
+export const Dropdown: React.FunctionComponent<DropdownProps> = (
+    {
+        options,
+        value,
+        onSelect,
+        searchable,
+        hasActionButton,
+        placeholder,
+        dropdownHeight,
+        fullWidth
+    }) => {
+
     const [isOpen, setIsOpen] = useState(false);
     const [search, setSearch] = useState("");
     const [filteredOptions, setFilteredOptions] = useState(options);
     const [dropdownPosition, setDropdownPosition] = useState("top-10");
+    const [dropdownHorizontalPosition, setDropdownHorizontalPosition] = useState("");
 
     const dropdownRef = useRef<HTMLDivElement>(null);
     const referenceDivRef = useRef<HTMLDivElement>(null);
@@ -32,13 +44,15 @@ export const Dropdown: React.FunctionComponent<DropdownProps> = ({ options, valu
         setIsOpen(false);
         setSearch("");
     }
-    
+
     const getLabel = (value: string) => {
         const option = options.find((option) => option.value === value);
         return option ? option.label : "";
     }
-    
+
     const displayValue = value && value.trim() !== "" ? getLabel(value) : placeholder || "Choose an option";
+
+    const dropdownHeightClass = dropdownHeight ? `h-[${dropdownHeight}px]` : "h-[250px]";
 
     useEffect(() => {
 
@@ -59,20 +73,31 @@ export const Dropdown: React.FunctionComponent<DropdownProps> = ({ options, valu
 
     useEffect(() => {
         if (isOpen && referenceDivRef.current && dropdownRef.current) {
+
+            // VERTICAL POSITION
             const windowHeight = window.innerHeight;
             const refRect = referenceDivRef.current.getBoundingClientRect();
-            const dropdownHeight = 250;
-            if (refRect.top + dropdownHeight > windowHeight) {
+            const dropdownHeightRendered = dropdownHeight ? parseInt(dropdownHeight) : 250;
+            if (refRect.top + dropdownHeightRendered > windowHeight) {
                 setDropdownPosition("bottom-0");
             } else {
                 setDropdownPosition("top-10");
+            }
+
+            // HORIZONTAL POSITION
+            const windowWidth = window.innerWidth;
+            const modalWidth = 250; 
+            if (refRect.left + modalWidth > windowWidth) {
+                setDropdownHorizontalPosition("right-0");
+            } else {
+                setDropdownHorizontalPosition(""); 
             }
         }
     }, [isOpen]);
 
     return (
         <>
-            <div  className="relative w-full rounded-md dropdown-open"
+            <div className="relative w-full rounded-md dropdown-open"
                 ref={referenceDivRef}
             >
                 {
@@ -80,7 +105,7 @@ export const Dropdown: React.FunctionComponent<DropdownProps> = ({ options, valu
 
                         <ActionButton
                             text={value}
-                            click={() =>setIsOpen(!isOpen)}
+                            click={() => setIsOpen(!isOpen)}
                             fontWeight="font-semibold"
                             hasBackground={true}
                             backgroundColor='bg-gray'
@@ -94,9 +119,9 @@ export const Dropdown: React.FunctionComponent<DropdownProps> = ({ options, valu
 
                     ) : (
                         <input type="text" readOnly
-                        value={displayValue}
-                        className="dropdown-open input-style cursor-pointer w-full"
-                        onClick={() => setIsOpen(!isOpen)}
+                            value={displayValue}
+                            className="dropdown-open mt-2 input-style cursor-pointer w-full"
+                            onClick={() => setIsOpen(!isOpen)}
                         />
                     )
                 }
@@ -105,14 +130,14 @@ export const Dropdown: React.FunctionComponent<DropdownProps> = ({ options, valu
                     isOpen && (
 
                         <div
-                            className={`bg-primary absolute w-[250px] dropdown-open h-[250px] overflow-y-auto shadow-md ${dropdownPosition}`}
+                            className={`bg-primary z-20 absolute w-[250px] dropdown-open overflow-y-auto shadow-md ${dropdownHeightClass} ${dropdownPosition} ${dropdownHorizontalPosition} ${fullWidth}`}
 
                             ref={dropdownRef}>
 
                             {
                                 searchable && (
                                     <div className="border-b bg-primary sticky top-0 dropdown-open dark:border-bg border-gray p-4 mb-4">
-                                        <input  className="dropdown-open input-style"autoFocus type="text" onChange={handleSearch} />
+                                        <input className="dropdown-open input-style" autoFocus type="text" onChange={handleSearch} />
                                     </div>
                                 )
                             }

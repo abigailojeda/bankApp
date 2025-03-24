@@ -14,7 +14,7 @@ export const FormComponent: React.FC<FormComponentProps> = ({
   onSubmit,
   validate,
 }) => {
-  const { formState, onInputChange, onResetForm } = useForm(initialValues);
+  const { formState, onInputChange } = useForm(initialValues);
 
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
@@ -78,8 +78,10 @@ export const FormComponent: React.FC<FormComponentProps> = ({
             <Dropdown
               options={field.options ?? []}
               hasActionButton={false}
+              dropdownHeight={field.height}
               value={String(value)}
               placeholder={field.placeholder}
+              fullWidth="w-full"
               onSelect={(val) => {
                 onInputChange({
                   target: {
@@ -101,17 +103,23 @@ export const FormComponent: React.FC<FormComponentProps> = ({
     <form onSubmit={handleSubmit}>
       {fields.map((field) => (
         <div key={field.name} style={{ marginBottom: "1rem" }}>
-          <label htmlFor={field.name}>{field.label || field.name}</label>
+          <label className="text-text text-sm" htmlFor={field.name}>{field.label || field.name}</label>
           {renderField(field)}
         </div>
       ))}
-      <div style={{ marginTop: "1rem" }}>
-        <button type="submit">Guardar</button>
-        <button type="button" onClick={onClose}>
-          Cancelar
+
+      <div className="flex justify-end space-x-4 mt-6">
+
+        <button
+          className="confirm-button"
+          type="submit">
+          Save
         </button>
-        <button type="button" onClick={onResetForm}>
-          Reset
+        <button
+          className="cancel-button"
+          type="button"
+          onClick={onClose}>
+          Cancel
         </button>
       </div>
     </form>

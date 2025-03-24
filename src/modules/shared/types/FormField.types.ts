@@ -8,6 +8,7 @@ export interface FormFieldProps {
     options?: DropdownOption[]; 
     placeholder?: string;
     required?: boolean;
+    height?: string;
     onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   }
   

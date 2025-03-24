@@ -10,4 +10,6 @@ export type DropdownProps = {
     onSelect: (value: string) => void;
     searchable?: boolean;
     placeholder?: string;
+    dropdownHeight?: string;
+    fullWidth?: string;
 };

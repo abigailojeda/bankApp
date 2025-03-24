@@ -9,6 +9,7 @@ export const InputDate: React.FC<FormFieldProps> = ({
 }) => {
   return (
     <input
+      className='input-style mt-2'
       type="date"
       name={name}
       value={value}

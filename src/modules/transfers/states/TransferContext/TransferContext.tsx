@@ -1,45 +1,33 @@
 import { createContext } from 'react';
-import { Transfer } from '../../types/transfer.types';
+import { Transfer, TransferAddForm } from '../../types/transfer.types';
 
 export interface TransferContextValue {
-    transfers: Transfer[];
-    loading: boolean;
-    error: Error | null;
-    totalIncomes?: string;
-    totalExpenses?: string;
-    refreshTransfers: () => void;
-    addTransfer: (transferData: {
-        accountId: number;
-        amount: number;
-        date?: string;
-        type: string;
-        description: string;
-    }) => void;
-    updateTransfer: (transferData: {
-        id: string;
-        accountId: number;
-        amount: number;
-        date?: string;
-        type: string;
-        description: string;
-    }) => void;
-    deleteTransfer: (transferId: string) => void;
-    undoTransfer: (transferId: string) => void;
-    calculateTotalIncomes: () => void;
-    calculateTotalExpenses: () => void;
+  transfers: Transfer[];
+  loading: boolean;
+  error: Error | null;
+  totalIncomes: string;
+  totalExpenses: string;
+  addTransfer: (transferData: TransferAddForm) => Promise<void>;
+  updateTransfer: (transferData: TransferAddForm & { id: string }) => Promise<void>;
+  deleteTransfer: (transferId: string) => Promise<void>;
+  undoTransfer: (transferId: string) => Promise<void>;
+  refreshTransfers: () => Promise<void>;
+  validateTransferData: (
+    transferData: Record<string, string | number>,
+    operation?: 'add' | 'update' | 'undo' | 'delete'
+  ) => { [key: string]: string };
 }
 
 export const TransferContext = createContext<TransferContextValue>({
-    transfers: [],
-    totalIncomes: '0',
-    totalExpenses: '0',
-    loading: false,
-    error: null,
-    refreshTransfers: () => { },
-    addTransfer: () => { },
-    updateTransfer: () => { },
-    deleteTransfer: () => { },
-    undoTransfer: () => { },
-    calculateTotalIncomes: () => { },
-    calculateTotalExpenses: () => { }
-});
+  transfers: [],
+  loading: false,
+  error: null,
+  totalIncomes: '0',
+  totalExpenses: '0',
+  addTransfer: async () => {},
+  updateTransfer: async () => {},
+  deleteTransfer: async () => {},
+  undoTransfer: async () => {},
+  refreshTransfers: async () => {},
+  validateTransferData: () => ({}),
+}); 

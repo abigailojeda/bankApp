@@ -1,6 +1,7 @@
 import { AccountSummary } from "../../account/components/AccountSummary";
 import { ExpensesChart } from "../../analytics/components/ExpensesChart";
 import { SavingsChart } from "../../analytics/components/SavingsChart";
+import { CardsList } from "../../cards/components/CardsList";
 import TransfersSummary from "../../transfers/components/TransfersSummary";
 
 export const DashboardPage = () => {
@@ -26,7 +27,7 @@ export const DashboardPage = () => {
 
             {/* cards */}
             <div>
-
+                <CardsList />
             </div>
 
         </div>
