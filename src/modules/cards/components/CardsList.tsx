@@ -7,6 +7,7 @@ import { FormComponent } from "../../shared/components/forms/FormComponent";
 import { Card } from "../types/card.type";
 import { FormFieldProps } from "../../shared/types/FormField.types";
 import { formatCardNumberString } from "../../shared/helpers/formatter";
+import RealtimeCardNotifier from "./RealtimeCardNotifier";
 
 export const CardsList = () => {
 
@@ -62,6 +63,7 @@ export const CardsList = () => {
 
   return (
     <>
+      <RealtimeCardNotifier />
       {
         cards.map((card, index) => (
           <CardItem_ key={index} card={card} index={index} user={user} />

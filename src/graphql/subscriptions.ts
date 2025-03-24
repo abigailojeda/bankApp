@@ -26,3 +26,16 @@ export const CURRENCY_CHANGED_SUBSCRIPTION = gql`
     }
   }
 `;
+
+export const CARD_CHANGED_SUBSCRIPTION = gql`
+  subscription {
+    cardChanged {
+      changeType
+      card {
+        id
+        account_id
+        card_number
+      }
+    }
+  }
+`;

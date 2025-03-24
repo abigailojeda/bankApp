@@ -49,7 +49,6 @@ const RealtimeTransferNotifier: React.FC = () => {
           content: `${transaction.type === 'withdrawal' ? '-' : ''}${transaction.type === 'deposit' ?  '+' : ''}${formatAmountDisplayed(transaction.amount, transaction.currency)}`,
         };
 
-        console.log(changeType, transaction.type);
         if (changeType === 'VOIDED' || changeType === 'UPDATED') {
           toasterMessage.color = TransferTypeColorMap[changeType.toLowerCase() as TransferTypeKey];
         }
