@@ -21,7 +21,7 @@ export const DashboardPage = () => {
         <>
             {
                 loadingAccount || loadingAuth || loadingTranfers ? <DashboardLoading /> : <div className="page-container flex-wrap">
-                    <div className="flex flex-col  gap-4" >
+                    <div className="flex flex-col w-full gap-4 sm:w-fit" >
                         {/* balance */}
                         <AccountSummary />
 
@@ -30,7 +30,7 @@ export const DashboardPage = () => {
                     </div>
 
 
-                    <div>
+                    <div className="w-full sm:w-fit">
                         {/* charts */}
 
                         <SavingsChart />
@@ -40,7 +40,7 @@ export const DashboardPage = () => {
 
 
                     {/* cards */}
-                    <div>
+                    <div className="w-full sm:w-fit">
                         <CardsList />
                     </div>
 
