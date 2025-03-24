@@ -78,8 +78,8 @@ export const parseCSVToTransfers = (
         
         resolve(transfers);
       },
-      error: (error: Papa.ParseError): void => {
-        reject(new Error(`Failed to parse CSV file: ${error.message}`));
+      error: (error: Error, file: File): void => {
+        reject(new Error(`Failed to parse CSV file '${file.name}: ${error.message}`));
       }
     });
   });
