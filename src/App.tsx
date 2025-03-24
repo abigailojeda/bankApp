@@ -6,6 +6,7 @@ import { AccountProvider } from './modules/account/states/AccountContext';
 import AuthProvider from './modules/auth/states/AuthContext/AuthProvider';
 import { ToastContainer } from 'react-toastify';
 import { CurrencyProvider } from './modules/account/states/CurrencyContext';
+import CardProvider from './modules/cards/states/CardContext/CardProvider';
 
 function App() {
 
@@ -16,14 +17,14 @@ function App() {
         <AccountProvider>
           <CurrencyProvider>
             <TransferProvider>
-              <AppRouter />
-
-              <ToastContainer
-                closeButton={false}
-                toastStyle={{ backgroundColor: "var(--color-toasterbg)" }}
-                theme="colored"
-              />
-
+              <CardProvider>
+                <AppRouter />
+                <ToastContainer
+                  closeButton={false}
+                  toastStyle={{ backgroundColor: "var(--color-toasterbg)" }}
+                  theme="colored"
+                />
+              </CardProvider>
             </TransferProvider>
           </CurrencyProvider>
         </AccountProvider>

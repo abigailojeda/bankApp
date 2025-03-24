@@ -50,15 +50,17 @@ export const formatNumberString = (
 };
 
 export const formatStringNumber = (stringNumber: string | number): number => {
-    if (typeof stringNumber === "string") {
-        const cleanedString = stringNumber.replace(/,/g, "").replace(/\s+/g, "");
-        return parseFloat(cleanedString);
-    }
+  if (typeof stringNumber === "string") {
+    const cleanedString = stringNumber.replace(/,/g, "").replace(/\s+/g, "");
+    return parseFloat(cleanedString);
+  }
 
-    return stringNumber === null ? 0 : stringNumber;
+  return stringNumber === null ? 0 : stringNumber;
 };
 
-export const filterValidCurrencyCodes = (rates: { [currency: string]: number }): void => {
+export const filterValidCurrencyCodes = (rates: {
+  [currency: string]: number;
+}): void => {
   // Filter out any currency codes that do not conform to the ISO 4217 format
   // as Intl.NumberFormat only supports ISO 4217 currency codes.
   Object.keys(rates).forEach((currencyCode) => {
@@ -67,3 +69,13 @@ export const filterValidCurrencyCodes = (rates: { [currency: string]: number }):
     }
   });
 };
+
+export const formatCardNumber = (cardNumber: string): string => {
+  return cardNumber.replaceAll("-", " ").trim();
+};
+
+export const formatCardNumberString = (cardNumber: string): string => {
+  const cleanedValue = cardNumber.replace(/[^0-9]/g, "");
+  const parts = cleanedValue.match(/.{1,4}/g);
+  return parts ? parts.join("-") : "";
+}

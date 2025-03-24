@@ -15,7 +15,7 @@ import { AccountContext } from '../../account/states/AccountContext';
 import { validateTransaction } from '../utils/validationUtils';
 
 const TransfersSummary: React.FC = () => {
-  const { transfers, loading, error, addTransfer } = useContext(TransferContext);
+  const { transfers, addTransfer } = useContext(TransferContext);
   const { currentAccount, currentBalance } = useContext(AccountContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -48,9 +48,6 @@ const TransfersSummary: React.FC = () => {
     date: new Date().toISOString().split("T")[0],
     category: "",
   };
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
 
   return (
     <>

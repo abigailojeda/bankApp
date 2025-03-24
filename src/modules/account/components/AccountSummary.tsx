@@ -10,17 +10,10 @@ import RealtimeCurrencyNotifier from "./RealtimeCurrencyNotifier";
 import { formatStringNumber } from "../../shared/helpers/formatter";
 
 export const AccountSummary = () => {
-    const { currentBalance, currency, loading, error, updateCurrency } = useContext(AccountContext);
-    const { user, loading: loadingAuth, error: errorAuth } = useContext(AuthContext);
+    const { currentBalance, currency, updateCurrency } = useContext(AccountContext);
+    const { user } = useContext(AuthContext);
     const { totalIncomes, totalExpenses, calculateTotalIncomes, calculateTotalExpenses } = useContext(TransferContext);
     const { exchangeRates, convertCurrency } = useContext(CurrencyContext);
-
-    if (loading || loadingAuth) {
-        return <div>Loading...</div>;
-    }
-    if (error || errorAuth) {
-        return <div>Error: {error?.message}</div>;
-    }
 
     const currencyOptions = Object.keys(exchangeRates).map((key) => ({
         label: key.toUpperCase(),
@@ -35,7 +28,7 @@ export const AccountSummary = () => {
             await updateCurrency(balance, currency);
 
         } catch (err) {
-          console.error('Error addiUpdateCurrency:', err);
+            console.error('Error addiUpdateCurrency:', err);
         }
     };
 
@@ -52,15 +45,15 @@ export const AccountSummary = () => {
                 </div>
 
 
-               <div className="w-fit">
-               <Dropdown
-                    options={currencyOptions}
-                    value={currency}
-                    onSelect={handleUpdateCurrency}
-                    searchable={true}
-                    hasActionButton={true}
-                />
-               </div>
+                <div className="w-fit">
+                    <Dropdown
+                        options={currencyOptions}
+                        value={currency}
+                        onSelect={handleUpdateCurrency}
+                        searchable={true}
+                        hasActionButton={true}
+                    />
+                </div>
 
             </div>
 

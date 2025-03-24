@@ -5,8 +5,8 @@ export interface CardResponse {
 }
 
 const GET_CARDS_BY_ACCOUNT_QUERY = `
-    query CardsByAccountId($accountId: ID!) {
-      cardsByAccountId(accountId: $accountId) {
+    query CardsByAccountId($account_id: ID!) {
+      cardsByAccountId(account_id: $account_id) {
         id
         account_id
         card_number
@@ -15,8 +15,8 @@ const GET_CARDS_BY_ACCOUNT_QUERY = `
   `;
 
 const CREATE_CARD_MUTATION = `
-    mutation CreateCard($accountId: ID!, $cardNumber: String!) {
-      createCard(account_id: $accountId, card_number: $cardNumber) {
+    mutation CreateCard($account_id: ID!, $card_number: String!) {
+      createCard(account_id: $account_id, card_number: $card_number) {
         id
         account_id
         card_number
@@ -25,8 +25,8 @@ const CREATE_CARD_MUTATION = `
   `;
 
 const UPDATE_CARD_MUTATION = `
-    mutation UpdateCard($id: ID!, $accountId: ID, $cardNumber: String) {
-      updateCard(id: $id, account_id: $accountId, card_number: $cardNumber) {
+    mutation UpdateCard($id: ID!, $account_id: ID, $card_number: String) {
+      updateCard(id: $id, account_id: $account_id, card_number: $card_number) {
         id
         account_id
         card_number
@@ -49,7 +49,7 @@ export async function getCardsByAccount(
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       query: GET_CARDS_BY_ACCOUNT_QUERY,
-      variables: { accountId },
+      variables: { account_id: accountId },
     }),
   });
   const result = await response.json();
@@ -70,8 +70,8 @@ export async function createCardService(cardData: {
     body: JSON.stringify({
       query: CREATE_CARD_MUTATION,
       variables: {
-        accountId: cardData.accountId,
-        cardNumber: cardData.cardNumber,
+        account_id: cardData.accountId,
+        card_number: cardData.cardNumber,
       },
     }),
   });
@@ -95,8 +95,8 @@ export async function updateCardService(cardData: {
       query: UPDATE_CARD_MUTATION,
       variables: {
         id: cardData.id,
-        accountId: cardData.accountId,
-        cardNumber: cardData.cardNumber,
+        account_id: cardData.accountId,
+        card_number: cardData.cardNumber,
       },
     }),
   });
