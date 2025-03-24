@@ -1,4 +1,8 @@
-# Magic Bank 🏦🏧✨
+# Magic Bank 🏦🏧✨  
+
+---  
+
+➜ [Demo](https://bank-app-lake-eight.vercel.app/)  
 
 ---
 ➜ [Design in progress in Figma](https://www.figma.com/design/TkhEV41wN9rf4U8OvBwHuy/MagicBank-Design)  
@@ -6,10 +10,6 @@
 ---  
 
   ![](screenshots/layout.png)  
-
----  
-
-➜ [Demo](https://bank-app-lake-eight.vercel.app/)  
 
 ---  
 ## REALTIME NOTIFICATIONS 🔔
